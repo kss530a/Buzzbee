@@ -1,10 +1,10 @@
 def getHyparam(word):
-    rnn_layer_size = 10
+    rnn_layer_size = 3
     seq_length = 10  # 타임시리즈 1회 처리 수
-    data_dim = 3380  # 단어 수
+    data_dim = 2000  # 단어 수
     hidden_dim = 10  # RNNCell의 출력 넓이
     Normarization = None  # 입력데이터 일반화 - 미필요
-    fc_hidden_dim = 200  # FC 내부에서 사용되는 넓이
+    fc_hidden_dim = 10  # FC 내부에서 사용되는 넓이
     output_dim = 1  # 최종 출력값
     learning_rate = 0.01  # 1회 학습에서 배우는 정도
     iterations = 500  # 학습량
