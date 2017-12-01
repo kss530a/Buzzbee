@@ -2,13 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4dee96f9-2731-449d-b835-68989fd96510" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/Buzzbee.iml" afterPath="$PROJECT_DIR$/.idea/Buzzbee.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test_bee.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/trainning_bee.py" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/trainning.py" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/makeX.py" afterPath="$PROJECT_DIR$/getX.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hyperParameters.py" afterPath="$PROJECT_DIR$/hyperParameters.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test2.py" afterPath="$PROJECT_DIR$/test2.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trainning.py" afterPath="$PROJECT_DIR$/trainning.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/makeY.py" afterPath="$PROJECT_DIR$/makeY.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -19,26 +19,12 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="450">
-      <file leaf-file-name="clawler.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/clawler.py">
+      <file leaf-file-name="hyperParameters.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/hyperParameters.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="11520">
-              <caret line="768" column="0" lean-forward="false" selection-start-line="768" selection-start-column="0" selection-end-line="768" selection-end-column="0" />
-              <folding>
-                <element signature="e#24#40#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="savePrice.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/savePrice.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="855">
-              <caret line="57" column="11" lean-forward="false" selection-start-line="57" selection-start-column="11" selection-end-line="57" selection-end-column="11" />
-              <folding>
-                <element signature="e#0#25#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="105">
+              <caret line="7" column="8" lean-forward="false" selection-start-line="7" selection-start-column="8" selection-end-line="7" selection-end-column="8" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -46,8 +32,8 @@
       <file leaf-file-name="makeY.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/makeY.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+            <state relative-caret-position="298">
+              <caret line="190" column="16" lean-forward="false" selection-start-line="190" selection-start-column="11" selection-end-line="190" selection-end-column="16" />
               <folding>
                 <element signature="e#469#487#0" expanded="true" />
               </folding>
@@ -55,45 +41,45 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="hyperParameters.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/hyperParameters.py">
+      <file leaf-file-name="trainning_bee.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/trainning_bee.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="6" column="22" lean-forward="false" selection-start-line="6" selection-start-column="22" selection-end-line="6" selection-end-column="22" />
+            <state relative-caret-position="3060">
+              <caret line="204" column="27" lean-forward="true" selection-start-line="204" selection-start-column="27" selection-end-line="204" selection-end-column="27" />
+              <folding>
+                <element signature="e#480#503#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="test_bee.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test_bee.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="193">
+              <caret line="174" column="31" lean-forward="false" selection-start-line="174" selection-start-column="0" selection-end-line="175" selection-end-column="0" />
+              <folding>
+                <element signature="e#295#318#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ans_RNN.stock.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/prac/ans_RNN.stock.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="240">
+              <caret line="66" column="6" lean-forward="false" selection-start-line="66" selection-start-column="6" selection-end-line="66" selection-end-column="6" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="trainning.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/trainning.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="281">
-              <caret line="192" column="33" lean-forward="true" selection-start-line="192" selection-start-column="33" selection-end-line="192" selection-end-column="33" />
-              <folding>
-                <element signature="e#296#319#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Kiwoom.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Kiwoom/Kiwoom.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1740">
-              <caret line="116" column="31" lean-forward="false" selection-start-line="116" selection-start-column="31" selection-end-line="116" selection-end-column="31" />
-              <folding>
-                <element signature="e#0#10#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="test.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="test.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+            <state relative-caret-position="375">
+              <caret line="28" column="63" lean-forward="true" selection-start-line="28" selection-start-column="63" selection-end-line="28" selection-end-column="63" />
               <folding />
             </state>
           </provider>
@@ -109,11 +95,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="makeX.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/makeX.py">
+      <file leaf-file-name="getX.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/getX.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="16" column="16" lean-forward="false" selection-start-line="16" selection-start-column="16" selection-end-line="16" selection-end-column="16" />
+            <state relative-caret-position="800">
+              <caret line="54" column="51" lean-forward="false" selection-start-line="54" selection-start-column="51" selection-end-line="54" selection-end-column="51" />
               <folding>
                 <element signature="e#79#104#0" expanded="true" />
               </folding>
@@ -124,8 +110,20 @@
       <file leaf-file-name="make_sub_tables.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/make_sub_tables.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="25" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+            <state relative-caret-position="1545">
+              <caret line="103" column="0" lean-forward="false" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#25#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BuzzBee.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/BuzzBee.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="254">
+              <caret line="124" column="1" lean-forward="false" selection-start-line="124" selection-start-column="0" selection-end-line="125" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -142,7 +140,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>OnEventConnect</find>
       <find>get</find>
       <find>_receive_chejan_data</find>
       <find>check_balance</find>
@@ -171,6 +168,8 @@
       <find>create</find>
       <find>Insert_Table_Article_N_Input_0</find>
       <find>[</find>
+      <find>model</find>
+      <find>CHECK_POINT_DIR</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -190,15 +189,20 @@
         <option value="$PROJECT_DIR$/Kiwoom/stock_price_kiwoom.csv" />
         <option value="$PROJECT_DIR$/Kiwoom/Kiwoom.py" />
         <option value="$PROJECT_DIR$/savePrice.py" />
-        <option value="$PROJECT_DIR$/makeY.py" />
         <option value="$PROJECT_DIR$/LSTM.py" />
         <option value="$PROJECT_DIR$/test.py" />
         <option value="$PROJECT_DIR$/makeX.py" />
         <option value="$PROJECT_DIR$/make_sub_tables.py" />
         <option value="$PROJECT_DIR$/clawler.py" />
-        <option value="$PROJECT_DIR$/test2.py" />
-        <option value="$PROJECT_DIR$/trainning.py" />
         <option value="$PROJECT_DIR$/hyperParameters.py" />
+        <option value="$PROJECT_DIR$/trainning.py" />
+        <option value="$PROJECT_DIR$/test_buzzbee.py" />
+        <option value="$PROJECT_DIR$/getY.py" />
+        <option value="$PROJECT_DIR$/test2.py" />
+        <option value="$PROJECT_DIR$/getX.py" />
+        <option value="$PROJECT_DIR$/makeY.py" />
+        <option value="$PROJECT_DIR$/test_bee.py" />
+        <option value="$PROJECT_DIR$/trainning_bee.py" />
       </list>
     </option>
   </component>
@@ -258,7 +262,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.trainning">
+  <component name="RunManager" selected="Python.test_buzzbee">
     <configuration name="clawler" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -293,23 +297,6 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
     </configuration>
-    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="Buzzbee" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-    </configuration>
     <configuration name="test2" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -327,6 +314,23 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
     </configuration>
+    <configuration name="test_buzzbee" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="Buzzbee" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test_bee.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+    </configuration>
     <configuration name="trainning" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -339,25 +343,25 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="Buzzbee" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/trainning.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/trainning_bee.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
     </configuration>
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="Python.test" />
-      <item index="1" class="java.lang.String" itemvalue="Python.clawler" />
-      <item index="2" class="java.lang.String" itemvalue="Python.test2" />
-      <item index="3" class="java.lang.String" itemvalue="Python.make_sub_tables" />
-      <item index="4" class="java.lang.String" itemvalue="Python.trainning" />
+      <item index="0" class="java.lang.String" itemvalue="Python.clawler" />
+      <item index="1" class="java.lang.String" itemvalue="Python.test2" />
+      <item index="2" class="java.lang.String" itemvalue="Python.make_sub_tables" />
+      <item index="3" class="java.lang.String" itemvalue="Python.trainning" />
+      <item index="4" class="java.lang.String" itemvalue="Python.test_buzzbee" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.trainning" />
-        <item index="1" class="java.lang.String" itemvalue="Python.test2" />
-        <item index="2" class="java.lang.String" itemvalue="Python.make_sub_tables" />
-        <item index="3" class="java.lang.String" itemvalue="Python.clawler" />
-        <item index="4" class="java.lang.String" itemvalue="Python.test" />
+        <item index="0" class="java.lang.String" itemvalue="Python.test_buzzbee" />
+        <item index="1" class="java.lang.String" itemvalue="Python.trainning" />
+        <item index="2" class="java.lang.String" itemvalue="Python.test2" />
+        <item index="3" class="java.lang.String" itemvalue="Python.make_sub_tables" />
+        <item index="4" class="java.lang.String" itemvalue="Python.clawler" />
       </list>
     </recent_temporary>
   </component>
@@ -372,6 +376,14 @@
       <option name="presentableId" value="Default" />
       <updated>1512065124115</updated>
     </task>
+    <task id="LOCAL-00001" summary="'trainning.py' 더미데이터 테스트 완료">
+      <created>1512065585501</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1512065585501</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -381,7 +393,7 @@
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1890625" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32379517" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27259037" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297414" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -401,28 +413,15 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="'trainning.py' 더미데이터 테스트 완료" />
+    <option name="LAST_COMMIT_MESSAGE" value="'trainning.py' 더미데이터 테스트 완료" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/trainning.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/clawler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-          <folding>
-            <element signature="e#24#40#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="168">
@@ -430,7 +429,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/trainning.py">
+    <entry file="file://$PROJECT_DIR$/trainning_bee.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="28">
           <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
@@ -443,12 +442,12 @@
         <state relative-caret-position="308">
           <caret line="16" column="50" lean-forward="true" selection-start-line="16" selection-start-column="50" selection-end-line="16" selection-end-column="50" />
           <folding>
-            <element signature="e#0#10#0" expanded="true" />
+            <element signature="e#0#10#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/makeX.py">
+    <entry file="file://$PROJECT_DIR$/getX.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -462,7 +461,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/trainning.py">
+    <entry file="file://$PROJECT_DIR$/trainning_bee.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="168">
           <caret line="6" column="22" lean-forward="false" selection-start-line="6" selection-start-column="22" selection-end-line="6" selection-end-column="22" />
@@ -486,7 +485,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/trainning.py">
+    <entry file="file://$PROJECT_DIR$/trainning_bee.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="28">
           <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
@@ -494,7 +493,7 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/transaction.py" />
-    <entry file="file://$PROJECT_DIR$/makeX.py">
+    <entry file="file://$PROJECT_DIR$/getX.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -513,12 +512,12 @@
         <state relative-caret-position="448">
           <caret line="21" column="27" lean-forward="true" selection-start-line="21" selection-start-column="27" selection-end-line="21" selection-end-column="27" />
           <folding>
-            <element signature="e#0#10#0" expanded="true" />
+            <element signature="e#0#10#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/trainning.py">
+    <entry file="file://$PROJECT_DIR$/trainning_bee.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="168">
           <caret line="6" column="22" lean-forward="false" selection-start-line="6" selection-start-column="22" selection-end-line="6" selection-end-column="22" />
@@ -542,14 +541,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/trainning.py">
+    <entry file="file://$PROJECT_DIR$/trainning_bee.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="28">
           <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/makeX.py">
+    <entry file="file://$PROJECT_DIR$/getX.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -565,7 +564,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/transaction.py" />
     <entry file="file://$PROJECT_DIR$/BuzzBee.py" />
-    <entry file="file://$PROJECT_DIR$/trainning.py">
+    <entry file="file://$PROJECT_DIR$/trainning_bee.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="168">
           <caret line="6" column="22" lean-forward="false" selection-start-line="6" selection-start-column="22" selection-end-line="6" selection-end-column="22" />
@@ -615,13 +614,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/BuzzBee.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="644">
-          <caret line="28" column="12" lean-forward="false" selection-start-line="28" selection-start-column="12" selection-end-line="28" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Kiwoom/stock_price_kiwoom.csv">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -634,7 +626,7 @@
         <state relative-caret-position="1740">
           <caret line="116" column="31" lean-forward="false" selection-start-line="116" selection-start-column="31" selection-end-line="116" selection-end-column="31" />
           <folding>
-            <element signature="e#0#10#0" expanded="true" />
+            <element signature="e#0#10#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -644,45 +636,17 @@
         <state relative-caret-position="855">
           <caret line="57" column="11" lean-forward="false" selection-start-line="57" selection-start-column="11" selection-end-line="57" selection-end-column="11" />
           <folding>
-            <element signature="e#0#25#0" expanded="true" />
+            <element signature="e#0#25#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/trainning.py">
+    <entry file="file://$PROJECT_DIR$/trainning_bee.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="28">
           <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
           <folding>
-            <element signature="e#296#319#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/make_sub_tables.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="25" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/makeY.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding>
-            <element signature="e#469#487#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/makeX.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="16" lean-forward="false" selection-start-line="16" selection-start-column="16" selection-end-line="16" selection-end-column="16" />
-          <folding>
-            <element signature="e#79#104#0" expanded="true" />
+            <element signature="e#480#503#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -697,11 +661,77 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test.py">
+    <entry file="file://$PROJECT_DIR$/make_sub_tables.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+        <state relative-caret-position="1545">
+          <caret line="103" column="0" lean-forward="false" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/prac/ans_RNN.stock.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="66" column="6" lean-forward="false" selection-start-line="66" selection-start-column="6" selection-end-line="66" selection-end-column="6" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BuzzBee.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="254">
+          <caret line="124" column="1" lean-forward="false" selection-start-line="124" selection-start-column="0" selection-end-line="125" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hyperParameters.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="8" lean-forward="false" selection-start-line="7" selection-start-column="8" selection-end-line="7" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/makeY.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="298">
+          <caret line="190" column="16" lean-forward="false" selection-start-line="190" selection-start-column="11" selection-end-line="190" selection-end-column="16" />
+          <folding>
+            <element signature="e#469#487#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trainning_bee.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3060">
+          <caret line="204" column="27" lean-forward="true" selection-start-line="204" selection-start-column="27" selection-end-line="204" selection-end-column="27" />
+          <folding>
+            <element signature="e#480#503#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test_bee.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="193">
+          <caret line="174" column="31" lean-forward="false" selection-start-line="174" selection-start-column="0" selection-end-line="175" selection-end-column="0" />
+          <folding>
+            <element signature="e#295#318#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/getX.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="800">
+          <caret line="54" column="51" lean-forward="false" selection-start-line="54" selection-start-column="51" selection-end-line="54" selection-end-column="51" />
+          <folding>
+            <element signature="e#79#104#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -713,21 +743,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hyperParameters.py">
+    <entry file="file://$PROJECT_DIR$/test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="22" lean-forward="false" selection-start-line="6" selection-start-column="22" selection-end-line="6" selection-end-column="22" />
+        <state relative-caret-position="375">
+          <caret line="28" column="63" lean-forward="true" selection-start-line="28" selection-start-column="63" selection-end-line="28" selection-end-column="63" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/trainning.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="281">
-          <caret line="192" column="33" lean-forward="true" selection-start-line="192" selection-start-column="33" selection-end-line="192" selection-end-column="33" />
-          <folding>
-            <element signature="e#296#319#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>

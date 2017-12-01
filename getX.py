@@ -14,14 +14,12 @@ import os
 data_dim = hp.getHyparam("data_dim") #단어 수
 non_word_num = hp.getHyparam("non_word_num")
 
-def makeX(type):
-
+def getX(type):
+    dataX = []
     # DBMS 활용
     if type=="mysql":
         conn = mysql.connect("seungsu", "tmdtn12", "orcl")
         cur = conn.cursor()
-        x_data = []
-
         #특정속성(id, date 등) 제외하고 워드 속성만 가져오기
         sql_select_tables = "select * " \
                             "from input0 i0, input1 i1, input2 i2" \
@@ -55,10 +53,10 @@ def makeX(type):
 
 
         x_ = np.loadtxt('input_sample.csv', delimiter=',')
-        x_data = x_[:, non_word_num:-1]
+        dataX = x_[:, non_word_num:-1]
 
 
-    return x_data
+    return dataX
 
 
-print(makeX("csv"))
+print(getX("csv"))

@@ -9,13 +9,16 @@ def getHyparam(word):
     learning_rate = 0.01  # 1회 학습에서 배우는 정도
     iterations = 500  # 학습량
     #initializer = tf.contrib.layers.xavier_initializer()  # 가중치 초기값 설정
-    CHECK_POINT_DIR = TB_SUMMARY_DIR = './tb/LSTM'  # saver
+    CHECK_POINT_DIR = TB_SUMMARY_DIR = './save/LSTM'  # saver
     limitTimePoint = 70
     decideY = 0.2
     non_word_num = 2
+    train_portion = 0.7
 
     if word == "rnn_layer_size":
         return rnn_layer_size
+    elif word == "train_portion":
+        return train_portion
     elif word == "seq_length":
         return seq_length
     elif word == "data_dim":

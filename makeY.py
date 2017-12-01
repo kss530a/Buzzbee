@@ -186,6 +186,9 @@ def makeY(company):
         cur.close()
         conn.close()
 
+def getY(company, start_date, end_date):
+    dataY = []
+    return dataY
 
 if __name__ == "__main__":
     makeY("550041")
