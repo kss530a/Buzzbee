@@ -188,6 +188,23 @@ def makeY(company):
 
 def getY(company, start_date, end_date):
     dataY = []
+
+    try:
+        conn = mysql.connect("seungsu", "tmdtn12", "orcl")
+        cur = conn.cursor()
+
+        sql_select_Yhat = "select y_hat" \
+                          "from stock_price" \
+                          "where pcode='" + company + "' " \
+                          "and st_date between to_date('" + start_date + "', 'YYYYMMDDHH24MISS') " \
+                          "and to_date('" + end_date + "', 'YYYYMMDDHH24MISS') " \
+                          "order by st_date asc)"
+
+    except mysql.DatabaseError as e:
+        print('makeY Error : ', e)
+    finally:
+        cur.close()
+        conn.close()
     return dataY
 
 if __name__ == "__main__":

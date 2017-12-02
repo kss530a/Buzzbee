@@ -11,7 +11,7 @@ reference - http://hunkim.github.io/ml/
 refetence2 - http://aikorea.org/blog/rnn-tutorial-2/
 '''
 '''
-1. getX(company, start_date, end_date) => return dataX
+1. getX(start_date, end_date) => return dataX
 2. makeY()
 3. getY(company, start_date, end_date) => return dataY
 4. training_bee(dataX, dataY) or test_bee(dataY, dataY)
