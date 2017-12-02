@@ -21,7 +21,11 @@ class Kiwoom(QAxWidget):
     def _set_signal_slots(self):
         self.OnEventConnect.connect(self._event_connect)
         self.OnReceiveTrData.connect(self._receive_tr_data)
-        #self.OnReceiveChejanData.connect(self._receive_chejan_data())
+        self.OnReceiveChejanData.connect(self._receive_chejan_data())
+        self.OnReceiveRealData.connect()
+        self.OnReceiveMsg.connect()
+        self.OnReceiveTrCondition.connect()
+
 
     #접속 요청 with 이벤트루프
     def comm_connect(self):
@@ -195,11 +199,14 @@ class Kiwoom(QAxWidget):
 
     #추문 체결시 키움이벤트 처리
     def _receive_chejan_data(self, gubun, item_cnt, fid_list):
-        print(gubun)
-        print(self.get_chejan_data(9203))
-        print(self.get_chejan_data(302))
-        print(self.get_chejan_data(900))
-        print(self.get_chejan_data(911))
+        fids = fid_list.split(';')
+        print("[receiveChejanData]")
+        print("gubun: ", gubun, "itemCnt: ", item_cnt, "fidList: ", fid_list)
+        print("========================================")
+        print("[ 구분: ", self.getChejanData(913) if '913' in fids else '잔고통보', "]")
+        for fid in fids:
+            print(fid_list.CHEJAN[int(fid)] if int(fid) in fid_list.CHEJAN else fid, ": ", self.getChejanData(int(fid)))
+        print("========================================")
 
     #사용자 정보 및 계좌정보 요청
     def get_login_info(self, tag):
@@ -237,6 +244,14 @@ class Kiwoom(QAxWidget):
     def get_server_gubun(self):
         ret = self.dynamicCall("KOA_Functions(QString, QString)", "GetServerGubun", "")
         return ret
+
+    def GetCommRealData(self, pcode, fid):
+        ret = self.dynamicCall("KOA_Functions(QString, QString)", "주식시세", fid)
+        return ret
+    # def SetRealReg
+    # def SetRealRemove
+
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

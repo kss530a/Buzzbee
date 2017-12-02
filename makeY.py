@@ -112,8 +112,6 @@ def makeY(company):
     stnd_price=[]
     date_list = []
     y_list = []
-    y_hat = 99
-    executemany = []
 
     try:
         conn = mysql.connect("seungsu", "tmdtn12", "orcl")
@@ -208,6 +206,6 @@ def getY(company, start_date, end_date):
     return dataY
 
 if __name__ == "__main__":
-    makeY("550041")
+    makeY("039490")
     #price= getPrice("039490", "20171025125500", "20171025133600")
     #print(price)

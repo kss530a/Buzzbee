@@ -13,7 +13,8 @@ def creat_company_info_table():
         cur = conn.cursor()
         sql_create_tables = "create table company_info(" \
                             "pcode varchar(8) primary key," \
-                            "pname varchar(40) not null" \
+                            "pname varchar(40) not null, " \
+                            "eval_index number(3)" \
                             ")"
         cur.execute(sql_create_tables)
     except mysql.DatabaseError as e:
@@ -82,12 +83,30 @@ def creat_stock_price_table():
         cur.close()
         conn.close()
 
+def make_interest_company_table():
+    try:
+        conn = mysql.connect("seungsu", "tmdtn12", "orcl")
+        cur = conn.cursor()
+
+        sql_create_tables = "create table interest_company(" \
+                            "pcode varchar(8), " \
+                            "pname varchar(40)" \
+                            ")"
+
+        cur.execute(sql_create_tables)
+
+    except mysql.DatabaseError as e:
+        print('make_interest_company_table Error : ', e)
+    finally:
+        cur.close()
+        conn.close()
 
 #실행
 if __name__ == "__main__":
-    creat_company_info_table()
-    insert_company_info_table()
-    creat_stock_price_table()
+    # creat_company_info_table()
+    # insert_company_info_table()
+    # creat_stock_price_table()
+    make_interest_company_table()
     '''
     #입력 확인
     try:

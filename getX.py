@@ -21,29 +21,29 @@ def getX(start_date, end_date):
         conn = mysql.connect("seungsu", "tmdtn12", "orcl")
         cur = conn.cursor()
 
-        #특정속성(upload_date등) 제외하고 워드 속성만 가져오기
-        # Oracle1 - 속성명 받아와 UPLOAD_DATE 없애기
-        sql_select_column= "select COLUMN_NAME from ALL_TAB_COLUMNS where table_name='INPUT1'"
-        #cur.execute(sql_select_column)
-        for column in cur.fetchall():
-            column_list.append(column[0])
-        column_list.remove("UPLOAD_DATE")
-        #print(len(column_list))
-
-        columns = ""
-        str_conn = ", "
-        for i in range(0, len(column_list)):
-            if i < len(column_list):
-                columns += column_list[i] + str_conn
-            else:
-                columns += column[i-1]
-        # print(columns)
-        # print(type(columns))
-
-        sql_select_data= "select " + str(column)[2:-3] + " from INPUT1 " \
-                         "where UPLOAD_DATE between to_date('" + start_date + "', 'YYYYMMDDHH24MISS') " \
-                         "and to_date('" + end_date + "', 'YYYYMMDDHH24MISS') " \
-                         "order by UPLOAD_DATE asc"
+        # #특정속성(upload_date등) 제외하고 워드 속성만 가져오기
+        # # Oracle1 - 속성명 받아와 UPLOAD_DATE 없애기
+        # sql_select_column= "select COLUMN_NAME from ALL_TAB_COLUMNS where table_name='INPUT1'"
+        # #cur.execute(sql_select_column)
+        # for column in cur.fetchall():
+        #     column_list.append(column[0])
+        # column_list.remove("UPLOAD_DATE")
+        # #print(len(column_list))
+        #
+        # columns = ""
+        # str_conn = ", "
+        # for i in range(0, len(column_list)):
+        #     if i < len(column_list):
+        #         columns += column_list[i] + str_conn
+        #     else:
+        #         columns += column[i-1]
+        # # print(columns)
+        # # print(type(columns))
+        #
+        # sql_select_data= "select " + str(column)[2:-3] + " from INPUT1 " \
+        #                  "where UPLOAD_DATE between to_date('" + start_date + "', 'YYYYMMDDHH24MISS') " \
+        #                  "and to_date('" + end_date + "', 'YYYYMMDDHH24MISS') " \
+        #                  "order by UPLOAD_DATE asc"
         # print(sql_select_data)
         # cur.execute(sql_select_data)
         # print(cur.fetchall())
