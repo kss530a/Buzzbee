@@ -1,12 +1,12 @@
 import cx_Oracle as mysql
-from Kiwoom.Kiwoom import *
+from Kiwoom.Kiwoom2 import *
 
 #sub_tables
 #company_info = {pcode(pk), pname}
 #stock_price = {pcode(fk), st_date(pk), price}
 
 
-def creat_company_info_table():
+def create_company_info_table():
     #테이블 생성
     try:
         conn = mysql.connect("seungsu", "tmdtn12", "orcl")
@@ -17,8 +17,9 @@ def creat_company_info_table():
                             "eval_index number(3)" \
                             ")"
         cur.execute(sql_create_tables)
+        print("company_info 테이블 생성 완료")
     except mysql.DatabaseError as e:
-        print('Error : ', e)
+        print('creat_company_info_table Error : ', e)
     finally:
         cur.close()
         conn.close()
@@ -26,9 +27,8 @@ def creat_company_info_table():
 
 #테이블 정보 넣기
 def insert_company_info_table():
-    app = QApplication(sys.argv)
     kiwoom = Kiwoom()
-    kiwoom.comm_connect()
+    kiwoom.commConnect()
 
     #pcode 가져오기
     ret = kiwoom.dynamicCall("GetCodeListByMarket(QString)", ["0"])
@@ -52,15 +52,13 @@ def insert_company_info_table():
                                 + kospi_code_name_list[i] + "')"
             #확인용 print(sql_insert_tables)
             cur.execute(sql_insert_tables)
+        print("company_info 테이블 정보 입력 완료")
         conn.commit()
     except mysql.DatabaseError as e:
-        print('Error : ', e)
+        print('insert_company_info_table Error : ', e)
     finally:
         cur.close()
         conn.close()
-
-
-
 
 def creat_stock_price_table():
     try:
@@ -76,23 +74,27 @@ def creat_stock_price_table():
                             ")"
 
         cur.execute(sql_create_tables)
-
+        print("stock_price 테이블 생성 완료")
     except mysql.DatabaseError as e:
         print('Error : ', e)
     finally:
         cur.close()
         conn.close()
 
-def make_interest_company_table():
+def create_interest_company_table():
     try:
         conn = mysql.connect("seungsu", "tmdtn12", "orcl")
         cur = conn.cursor()
 
         sql_create_tables = "create table interest_company(" \
-                            "pcode varchar(8), " \
-                            "pname varchar(40)" \
+                            "pcode varchar(8) primary key, " \
+                            "pname varchar(40), " \
+                            "high250 number(10), " \
+                            "low250 number(10), " \
+                            "eval_index number(3), " \
+                            "foreign key (pcode) references company_info" \
                             ")"
-
+        print("interest_company 테이블 생성 완료")
         cur.execute(sql_create_tables)
 
     except mysql.DatabaseError as e:
@@ -101,12 +103,19 @@ def make_interest_company_table():
         cur.close()
         conn.close()
 
+
 #실행
 if __name__ == "__main__":
-    # creat_company_info_table()
+    app = QApplication(sys.argv)
+    kiwoom = Kiwoom()
+    kiwoom.commConnect()
+    # create_company_info_table()
     # insert_company_info_table()
     # creat_stock_price_table()
-    make_interest_company_table()
+    # create_interest_company_table()
+    pcode = "145210"
+    kiwoom.insert_interest_company_table(pcode)
+    kiwoom.update_interest_company(pcode)
     '''
     #입력 확인
     try:

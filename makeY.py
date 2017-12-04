@@ -159,17 +159,26 @@ def makeY(company):
                 y_hat = 0
             y_list.append(y_hat)
         y_list=np.array(y_list)
-        print(np.mean(y_list))
-
+        print(round(np.mean(y_list)*100))
         #날짜에 맞는 y_hat 값 넣기
+
+        #todo 최근 y_hat 저장날자 구하여 해당날짜 까지만 수행
         for i in range(0, len(date_list)-60):
             _date = str(date_list[i])
             _y_hat = str(y_list[i])
             sql_update_tables = "update stock_price " \
                                 "set y_hat=" + _y_hat + " " \
                                 "where st_date=to_date('"+_date+"','YYYYMMDDHH24MISS')"
+            print(sql_update_tables)
             cur.execute(sql_update_tables)
-        conn.commit()
+            conn.commit()
+
+        # temp = []
+        # for i in range(0, len(date_list)-60):
+        #     temp.append((int(y_list[i]), date_list[i]))
+        # sql_update_tables = "update stock_price set y_hat=:1 where st_date=to_date(':2','YYYYMMDDHH24MISS')"
+        # cur.executemany("update stock_price set y_hat=:1 where st_date=to_date(':2','YYYYMMDDHH24MISS')", temp)
+        # conn.commit()
 
         # executemany로 실행
         # for i in range(0, len(date_list)-60):
@@ -197,6 +206,7 @@ def getY(company, start_date, end_date):
                           "and st_date between to_date('" + start_date + "', 'YYYYMMDDHH24MISS') " \
                           "and to_date('" + end_date + "', 'YYYYMMDDHH24MISS') " \
                           "order by st_date asc)"
+        cur.execute(sql_select_Yhat)
 
     except mysql.DatabaseError as e:
         print('makeY Error : ', e)

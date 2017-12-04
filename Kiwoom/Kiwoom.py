@@ -21,10 +21,10 @@ class Kiwoom(QAxWidget):
     def _set_signal_slots(self):
         self.OnEventConnect.connect(self._event_connect)
         self.OnReceiveTrData.connect(self._receive_tr_data)
-        self.OnReceiveChejanData.connect(self._receive_chejan_data())
-        self.OnReceiveRealData.connect()
-        self.OnReceiveMsg.connect()
-        self.OnReceiveTrCondition.connect()
+        self.OnReceiveChejanData.connect(self._receive_chejan_data)
+        # self.OnReceiveRealData.connect()
+        # self.OnReceiveMsg.connect()
+        # self.OnReceiveTrCondition.connect()
 
 
     #접속 요청 with 이벤트루프
@@ -199,14 +199,11 @@ class Kiwoom(QAxWidget):
 
     #추문 체결시 키움이벤트 처리
     def _receive_chejan_data(self, gubun, item_cnt, fid_list):
-        fids = fid_list.split(';')
-        print("[receiveChejanData]")
-        print("gubun: ", gubun, "itemCnt: ", item_cnt, "fidList: ", fid_list)
-        print("========================================")
-        print("[ 구분: ", self.getChejanData(913) if '913' in fids else '잔고통보', "]")
-        for fid in fids:
-            print(fid_list.CHEJAN[int(fid)] if int(fid) in fid_list.CHEJAN else fid, ": ", self.getChejanData(int(fid)))
-        print("========================================")
+        print(gubun)
+        print(self.get_chejan_data(9203))
+        print(self.get_chejan_data(302))
+        print(self.get_chejan_data(900))
+        print(self.get_chejan_data(901))
 
     #사용자 정보 및 계좌정보 요청
     def get_login_info(self, tag):
@@ -264,7 +261,6 @@ if __name__ == "__main__":
     kiwoom.set_input_value("기준일자", "20170224")
     kiwoom.set_input_value("수정주가구분", 1)
     kiwoom.comm_rq_data("opt10081_req", "opt10081", 0, "0101")
-
     while kiwoom.remained_data == True:
         time.sleep(TR_REQ_TIME_INTERVAL)
         kiwoom.set_input_value("종목코드", "039490")
@@ -278,14 +274,12 @@ if __name__ == "__main__":
     kiwoom.set_input_value("틱범위", "1:1분")
     kiwoom.set_input_value("수정주가구분", 1)
     kiwoom.comm_rq_data("opt10080_req", "opt10080", 0, "0101")
-
     while kiwoom.remained_data == True:
         time.sleep(TR_REQ_TIME_INTERVAL)
         kiwoom.set_input_value("종목코드", "039490")
         kiwoom.set_input_value("틱범위", "1:1분")
         kiwoom.set_input_value("수정주가구분", 1)
         kiwoom.comm_rq_data("opt10080_req", "opt10080", 2, "0101")
-
         csv_file = open('stock_price_kiwoom.csv', 'w', encoding='UTF-8')
         csv_writer = csv.writer(csv_file, delimiter=',')
         for i in range(0, len(kiwoom.data['date'])):
@@ -305,4 +299,3 @@ if __name__ == "__main__":
     kiwoom.send_order("send_order_req", "0101", acc_no, order_type, code, quantity,
                       price, hoga, "")
     '''
-

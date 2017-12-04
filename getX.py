@@ -57,7 +57,7 @@ def getX(start_date, end_date):
         # Oracle2 전체 다 꺼내서 맨 앞 column만 제거(첫번째 column : upload_date)
         for _data in cur.fetchall():
             data = _data[1:]
-            # print(data)
+            print(data)
             dataX.append(data)
         # print(dataX)
 
@@ -99,4 +99,4 @@ def getX(start_date, end_date):
     return dataX
 
 if __name__ == "__main__":
-    print(getX("20171101000000", "20171122000000"))
+    print(getX("20171121000000", "20171122000000"))

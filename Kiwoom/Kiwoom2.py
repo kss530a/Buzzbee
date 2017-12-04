@@ -10,10 +10,15 @@ last edit: 2017. 02. 05
 import sys
 import logging
 import logging.config
+import cx_Oracle as mysql
+import datetime
+import time
+from PyQt5.QtCore import Qt, QTimer, QTime
 from PyQt5.QAxContainer import QAxWidget
 from PyQt5.QtCore import QEventLoop
 from PyQt5.QtWidgets import QApplication
 from pandas import DataFrame
+
 
 
 class Kiwoom(QAxWidget):
@@ -21,7 +26,12 @@ class Kiwoom(QAxWidget):
     def __init__(self):
         super().__init__()
 
+        # 키움 API 접속
         self.setControl("KHOPENAPI.KHOpenAPICtrl.1")
+
+        # DB 접속
+        self.conn = mysql.connect("seungsu", "tmdtn12", "orcl")
+        self.cur = self.conn.cursor()
 
         # Loop 변수
         # 비동기 방식으로 동작되는 이벤트를 동기화(순서대로 동작) 시킬 때
@@ -29,6 +39,7 @@ class Kiwoom(QAxWidget):
         self.requestLoop = None
         self.orderLoop = None
         self.conditionLoop = None
+        self.realDataLoop = None
 
         # 서버구분
         self.server = None
@@ -51,6 +62,16 @@ class Kiwoom(QAxWidget):
         # 예수금 d+2
         self.opw00001Data = 0
 
+        # high250, low250
+        self.high250 = 0
+        self.low250 = 0
+        self.testdata = []
+        self.tempMaxPrice = {}
+        self.nowPrice={}
+
+        # 키움API는 1초당 최대 5회의 TR만 허용
+        self.TR_REQ_TIME_INTERVAL=0.2
+
         # 보유종목 정보
         self.opw00018Data = {'accountEvaluation': [], 'stocks': []}
 
@@ -67,6 +88,7 @@ class Kiwoom(QAxWidget):
         # 로깅용 설정파일
         logging.config.fileConfig('logging.conf')
         self.log = logging.getLogger('Kiwoom')
+
 
     ###############################################################
     # 로깅용 메서드 정의                                               #
@@ -113,6 +135,7 @@ class Kiwoom(QAxWidget):
             # 로그인 후, 통신이 끊길 경우를 대비해서 예외처리함.
             try:
                 self.loginLoop.exit()
+                self.realDataLoop.exit()
             except AttributeError:
                 pass
 
@@ -127,6 +150,146 @@ class Kiwoom(QAxWidget):
         """
 
         self.msg += requestName + ": " + msg + "\r\n\r\n"
+
+    def update_interest_company(self, company):
+        self.setInputValue("종목코드", company)
+        self.commRqData("주식기본정보요청", "opt10001", 0, "0101")
+
+        high250 = self.high250
+        low250 = self.low250
+
+        try:
+        #db에 저장, 마지막 값 "" => 제거
+            sql_update_tables = "update interest_company " \
+                                "set high250='"+str(high250)+"', " \
+                                "low250='"+str(low250)+"' " \
+                                "where pcode='"+company+"'"
+            self.cur.execute(sql_update_tables)
+            print("update_interest_company Complete")
+            self.conn.commit()
+        except mysql.DatabaseError as e:
+            print('update_interest_company Error : ', e)
+
+    def savePrice(self, company):
+        self.data = {'date': [], 'high': []}
+
+        # 분봉주가 요청(opt10080)
+        time.sleep(self.TR_REQ_TIME_INTERVAL)
+        self.setInputValue("종목코드", company)
+        self.setInputValue("틱범위", "1:1분")
+        self.setInputValue("수정주가구분", "1")
+        self.commRqData("주식분봉차트조회요청", "opt10080", 0, "0101")
+
+        while self.inquiry == '2':
+            time.sleep(self.TR_REQ_TIME_INTERVAL)
+            self.setInputValue("종목코드", company)
+            self.setInputValue("틱범위", "1:1분")
+            self.setInputValue("수정주가구분", "1")
+            self.commRqData("주식분봉차트조회요청", "opt10080", 2, "0101")
+
+        self.inquiry = '0';
+
+        # DB에 접속
+        try:
+            # DB에 저장,  형태:20171127141500,-87000
+            for i in range(len(self.data['date'])):
+                year = self.data['date'][i][0:4]
+                month = self.data['date'][i][4:6]
+                day = self.data['date'][i][6:8]
+                hour = self.data['date'][i][8:10]
+                min = self.data['date'][i][10:12]
+                # "insert into stock_price values(to_date('2017-11-27 14:15:00', 'yyyy-mm-dd hh24:mi:ss'), 'company', 87000)"
+                sql_insert_tables = "insert into stock_price(st_date, pcode, price) " \
+                                    "values(to_date(\'" + str(year) + "-" + str(month) + "-" \
+                                    + str(day) + " " + str(hour) + ":" + str(min) + \
+                                    ":00\', \'yyyy-mm-dd hh24:mi:ss\'), " + "\'" + company + "\', " + \
+                                    self.data['high'][i] + ")"
+                self.cur.execute(sql_insert_tables)
+            self.conn.commit()
+        except mysql.DatabaseError as e:
+            print('savePrice Error : ', e)
+
+        print("savePrice Complete")
+
+    # UI에서 입력받은 pcode를 사용하여 DB에 저장함
+    def insert_interest_company_table(self, pcode):
+        try:
+            sql_select_tables = "select pname from company_info " \
+                                "where pcode='"+pcode+"'"
+
+            self.cur.execute(sql_select_tables)
+            pname=self.cur.fetchone()[0]
+
+            sql_update_tables = "insert into interest_company(pcode, pname) " \
+                                "values('"+pcode+"', '"+pname+"')"
+
+            self.cur.execute(sql_update_tables)
+            print("insert_interest_company_table Complete")
+            self.conn.commit()
+        except mysql.DatabaseError as e:
+            print('insert_interest_company_table Error : ', e)
+
+    # interest_company table에 있는 레코드 호출하여,
+    # interestCompany 에 저장
+    def getInterestCompany(self):
+        self.interestCompanyCode= []
+        try:
+            sql_select_tables = "select * from interest_company"
+            self.cur.execute(sql_select_tables)
+
+            self.interestCompany=[]
+            for company in self.cur.fetchall():
+                company = list(company)
+                self.interestCompanyCode.append(company[0])
+                self.interestCompany.append(company)
+        except mysql.DatabaseError as e:
+            e.msg = "getInterestCompany() 에러"
+            self.showDialog('Critical', e)
+
+
+    """
+    메인에서 10초마다 실행시킴
+    10초마다 최대값으로 갱신
+    savaRealTimePrice()에서 매1분마다 해당 최대값을 해당분으로 저장
+    :param pcodes: string - 종목코드 리스트(종목코드;종목코드;...)
+    :param fids: string - fid 리스트(fid;fid;...)
+    :return
+    """
+    def checkRealTimePrice(self):
+        #receiveRealData를 통해 저장된 데이터를 tempMaxPrice를 저장
+        if not self.nowPrice:
+            print("실시간 정보가 없습니다.")
+        # 종목별 가격 MaxPrice{}에 저장
+        else:
+            for code in self.realTimeCodeList:
+                if self.nowPrice[''.format(code)] > self.tempMaxPrice[''.format(code)]:
+                    self.tempMaxPrice[''.format(code)] = self.nowPrice[''.format(code)]
+            print(code +"의 현재가격 : "+ self.nowPrice[''.format(code)]+
+                  ", 최근 고가 : "+ self.tempMaxPrice[''.format(code)])
+
+    # 60초에 한번씩 실행
+    def saveRealTimePrice(self, pcodes):
+        # 최고가를 해당 분의 가격으로 DB에 저장한다.
+        # getRealTimePrice()에서 MaxPrice['pcode']=tempMaxPrice의 형태로 저장한
+        # 가격을 DB에 저장
+        self.realTimeCodeList
+        currentMin = datetime.datetime.now().strftime('%Y%m%d%H%M')
+        try:
+            for code in self.realTimeCodeList:
+                # "insert into stock_price values(to_date('20171127141500', 'yyyymmddhh24miss'), 'company', 87000)"
+                sql_insert_tables = "insert into stock_price(st_date, pcode, price) " \
+                                    "values(to_date('"+currentMin+" 'YYYYMMDDHH24MI'), " \
+                                    "'"+code+"', "+str(self.tempMaxPrice['{}'.format(code)])+")"
+                self.cur.execute(sql_insert_tables)
+                print("st_date : "+currentMin +", pcode ="+ code +
+                      ", price : "+ str(self.tempMaxPrice['{}'.format(code)]) + " 저장되었습니다.")
+            self.conn.commit()
+        except mysql.DatabaseError as e:
+            print('Error : ', e)
+        finally:
+            self.tempMaxPrice = {}
+
+
 
     def receiveTrData(self, screenNo, requestName, trCode, recordName, inquiry,
                       deprecated1, deprecated2, deprecated3, deprecated4):
@@ -165,6 +328,35 @@ class Kiwoom(QAxWidget):
                 data = self.commGetData(trCode, "", requestName, i, "종목명")
                 print(data)
             """
+        elif requestName == "주식기본정보요청":
+            high250 = self.commGetData(trCode, "", requestName, 0, "250최고")
+            low250 = self.commGetData(trCode, "", requestName, 0, "250최저")
+            self.high250= high250
+            self.low250 = low250
+
+        elif requestName == "주식분봉차트조회요청":
+            data_cnt = self.getRepeatCnt(trCode, requestName)
+
+            for i in range(data_cnt):
+                date = self.commGetData(trCode, "", requestName, i, "체결시간")
+                high = self.commGetData(trCode, "", requestName, i, "고가")
+
+                if (high[0] == "-"):
+                    high = high[1:]
+                elif high[0] =="+":
+                    high = high[1:]
+
+                self.data['date'].append(date)
+                self.data['high'].append(high)
+            #
+            # colName = ['종목코드', '현재가', '거래량', '거래대금', '일자', '시가', '고가', '저가',
+            #            '수정주가구분', '수정비율', '대업종구분', '소업종구분', '종목정보', '수정주가이벤트', '전일종가']
+            #
+            # data = DataFrame(data, columns=colName)
+            #
+            # print(type(data))
+            # print(data.head(5))
+
 
         elif requestName == "주식일봉차트조회요청":
             data = self.getCommDataEx(trCode, "주식일봉차트조회")
@@ -197,44 +389,49 @@ class Kiwoom(QAxWidget):
             # 계좌 평가 정보
             accountEvaluation = []
             keyList = ["총매입금액", "총평가금액", "총평가손익금액", "총수익률(%)", "추정예탁자산"]
-
             for key in keyList:
                 value = self.commGetData(trCode, "", requestName, 0, key)
+                if key == "총수익률(%)":
+                    value = Kiwoom.changeFormat(value, 1)
+                    if self.getServerGubun():
+                        value = float(value) / 100
+                        value = str(value)
 
-                if key.startswith("총수익률"):
-                    value = self.changeFormat(value, 1)
+                    if str(accountEvaluation[2])[0] == "-":
+                        value = "-"+ str(value)
                 else:
                     value = self.changeFormat(value)
 
                 accountEvaluation.append(value)
-
             self.opw00018Data['accountEvaluation'] = accountEvaluation
+
 
             # 보유 종목 정보
             cnt = self.getRepeatCnt(trCode, requestName)
             keyList = ["종목명", "보유수량", "매입가", "현재가", "평가손익", "수익률(%)"]
-
             for i in range(cnt):
                 stock = []
 
                 for key in keyList:
                     value = self.commGetData(trCode, "", requestName, i, key)
-
                     if key.startswith("수익률"):
                         value = self.changeFormat(value, 2)
+                        # if self.getServerGubun():
+                        #     value = float(value) / 100
+                        #     value = str(value)
                     elif key != "종목명":
                         value = self.changeFormat(value)
 
                     stock.append(value)
-
                 self.opw00018Data['stocks'].append(stock)
+
 
         try:
             self.requestLoop.exit()
         except AttributeError:
             pass
 
-    def receiveRealData(self, code, realType, realData):
+    def receiveRealData(self, codes, realType, realData):
         """
         실시간 데이터 수신 이벤트
         실시간 데이터를 수신할 때 마다 호출되며,
@@ -244,30 +441,29 @@ class Kiwoom(QAxWidget):
         :param realType: string - 실시간 타입(KOA의 실시간 목록 참조)
         :param realData: string - 실시간 데이터 전문
         """
-
         try:
+            self.realTimeCodeList = codes.split(';')
+            for code in self.realTimeCodeList:
+                if code == '09':
+                    return
+                else:
+                    runTimePrice = self.getCommRealData(code, 10)
+                    self.nowPrice['{}'.format(code)] = runTimePrice
+            print(self.nowPrice)
+            print("-----------------")
+            # if realType not in RealType.REALTYPE:
+            #     return
+            # if codes != "":
+            #     codeOrNot = codes
+            # else:
+            #     codeOrNot = realType
+            # for fid in sorted(RealType.REALTYPE[realType].keys()):
+            #     value = self.getCommRealData(codeOrNot, fid)
+            # TODO: DB에 저장
+            # self.log.debug(self.testdata)
+        except Exception as e:
             self.log.debug("[receiveRealData]")
             self.log.debug("({})".format(realType))
-
-            if realType not in RealType.REALTYPE:
-                return
-
-            data = []
-
-            if code != "":
-                data.append(code)
-                codeOrNot = code
-            else:
-                codeOrNot = realType
-
-            for fid in sorted(RealType.REALTYPE[realType].keys()):
-                value = self.getCommRealData(codeOrNot, fid)
-                data.append(value)
-
-            # TODO: DB에 저장
-            self.log.debug(data)
-
-        except Exception as e:
             self.log.error('{}'.format(e))
 
     def receiveChejanData(self, gubun, itemCnt, fidList):
@@ -585,6 +781,11 @@ class Kiwoom(QAxWidget):
         self.dynamicCall("SetRealReg(QString, QString, QString, QString)",
                          screenNo, codes, fids, realRegType)
 
+        # logout시 종료
+        self.realDataLoop = QEventLoop()
+        self.realDataLoop.exec_()
+
+
     def setRealRemove(self, screenNo, code):
         """
         실시간 데이터 중지 메서드
@@ -806,6 +1007,7 @@ class Kiwoom(QAxWidget):
         self.orderLoop = QEventLoop()
         self.orderLoop.exec_()
 
+
     def getChejanData(self, fid):
         """
         주문접수, 주문체결, 잔고정보를 얻어오는 메서드
@@ -878,6 +1080,17 @@ class Kiwoom(QAxWidget):
         cmd = 'GetMasterCodeName("%s")' % code
         name = self.dynamicCall(cmd)
         return name
+
+    def change_format(data):
+        strip_data = data.lstrip('-0')
+        if strip_data == '' or strip_data == '.00':
+            strip_data = '0'
+
+        format_data = format(int(strip_data), ',d')
+        if data.startswith('-'):
+            format_data = '-' + format_data
+
+        return format_data
 
     def changeFormat(self, data, percent=0):
 

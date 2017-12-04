@@ -25,15 +25,14 @@ from interest_company import *
 7. Y_hat에 따른 Transaction (미완성)
 -------------------------------------------------------------------
 +@ 모델 튜닝
++@ UI 만들기
 '''
 
 app = QApplication(sys.argv)
-company = "273130"
+company = "039490"
 start_date ="20171120000000"
 end_date = "20171125000000"
 
-register_interest_company(company)
-savePrice.savePrice(company)
 makeY.makeY(company)
-dataX=getX(start_date, end_date)
-print(dataX)
+#dataX=getX(start_date, end_date)
+#print(dataX)

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1392</width>
-    <height>794</height>
+    <height>896</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -24,13 +24,19 @@
      </rect>
     </property>
     <property name="title">
-     <string>수동주문</string>
+     <string notr="true">수동주문</string>
+    </property>
+    <property name="flat">
+     <bool>false</bool>
+    </property>
+    <property name="checkable">
+     <bool>false</bool>
     </property>
     <widget class="QLabel" name="label">
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>40</y>
+       <y>30</y>
        <width>77</width>
        <height>18</height>
       </rect>
@@ -43,7 +49,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>80</y>
+       <y>70</y>
        <width>77</width>
        <height>18</height>
       </rect>
@@ -56,7 +62,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>120</y>
+       <y>110</y>
        <width>77</width>
        <height>18</height>
       </rect>
@@ -69,7 +75,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>190</y>
+       <y>180</y>
        <width>77</width>
        <height>18</height>
       </rect>
@@ -82,7 +88,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>230</y>
+       <y>220</y>
        <width>77</width>
        <height>18</height>
       </rect>
@@ -95,7 +101,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>270</y>
+       <y>260</y>
        <width>77</width>
        <height>18</height>
       </rect>
@@ -104,22 +110,22 @@
       <string>가격</string>
      </property>
     </widget>
-    <widget class="QComboBox" name="comboBox">
+    <widget class="QComboBox" name="accountComboBox">
      <property name="geometry">
       <rect>
        <x>70</x>
-       <y>40</y>
-       <width>161</width>
+       <y>30</y>
+       <width>171</width>
        <height>24</height>
       </rect>
      </property>
     </widget>
-    <widget class="QComboBox" name="comboBox_2">
+    <widget class="QComboBox" name="hogaTypeComboBox">
      <property name="geometry">
       <rect>
        <x>70</x>
-       <y>190</y>
-       <width>161</width>
+       <y>180</y>
+       <width>171</width>
        <height>24</height>
       </rect>
      </property>
@@ -134,12 +140,12 @@
       </property>
      </item>
     </widget>
-    <widget class="QComboBox" name="comboBox_3">
+    <widget class="QComboBox" name="orderTypeComboBox">
      <property name="geometry">
       <rect>
        <x>70</x>
-       <y>80</y>
-       <width>161</width>
+       <y>70</y>
+       <width>171</width>
        <height>24</height>
       </rect>
      </property>
@@ -164,22 +170,22 @@
       </property>
      </item>
     </widget>
-    <widget class="QLineEdit" name="lineEdit">
+    <widget class="QLineEdit" name="codeLineEdit">
      <property name="geometry">
       <rect>
        <x>70</x>
-       <y>120</y>
-       <width>161</width>
+       <y>110</y>
+       <width>171</width>
        <height>25</height>
       </rect>
      </property>
     </widget>
-    <widget class="QLineEdit" name="lineEdit_2">
+    <widget class="QLineEdit" name="codeNameLineEdit">
      <property name="geometry">
       <rect>
        <x>70</x>
-       <y>150</y>
-       <width>161</width>
+       <y>140</y>
+       <width>171</width>
        <height>25</height>
       </rect>
      </property>
@@ -187,12 +193,12 @@
       <string notr="true">background-color:rgb(170,255,255);</string>
      </property>
     </widget>
-    <widget class="QSpinBox" name="spinBox">
+    <widget class="QSpinBox" name="qtySpinBox">
      <property name="geometry">
       <rect>
        <x>70</x>
-       <y>230</y>
-       <width>161</width>
+       <y>220</y>
+       <width>171</width>
        <height>25</height>
       </rect>
      </property>
@@ -200,12 +206,12 @@
       <number>100000</number>
      </property>
     </widget>
-    <widget class="QSpinBox" name="spinBox_2">
+    <widget class="QSpinBox" name="priceSpinBox">
      <property name="geometry">
       <rect>
        <x>70</x>
-       <y>270</y>
-       <width>161</width>
+       <y>260</y>
+       <width>171</width>
        <height>25</height>
       </rect>
      </property>
@@ -213,17 +219,30 @@
       <number>100000000</number>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton">
+    <widget class="QPushButton" name="orderBtn">
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>310</y>
+       <y>300</y>
        <width>112</width>
-       <height>34</height>
+       <height>41</height>
       </rect>
      </property>
      <property name="text">
       <string>현금주문</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="creditOrderBtn">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>300</y>
+       <width>112</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>신용주문</string>
      </property>
     </widget>
    </widget>
@@ -231,20 +250,20 @@
     <property name="geometry">
      <rect>
       <x>300</x>
-      <y>20</y>
+      <y>390</y>
       <width>1041</width>
-      <height>681</height>
+      <height>461</height>
      </rect>
     </property>
     <property name="title">
      <string>잔고 및 보유종목현황</string>
     </property>
-    <widget class="QTableWidget" name="tableWidget">
+    <widget class="QTableWidget" name="accountEvaluationTable">
      <property name="geometry">
       <rect>
        <x>10</x>
        <y>30</y>
-       <width>1001</width>
+       <width>1021</width>
        <height>81</height>
       </rect>
      </property>
@@ -349,13 +368,13 @@
       </property>
      </column>
     </widget>
-    <widget class="QTableWidget" name="tableWidget_2">
+    <widget class="QTableWidget" name="stocksTable">
      <property name="geometry">
       <rect>
        <x>10</x>
        <y>120</y>
-       <width>1001</width>
-       <height>461</height>
+       <width>1021</width>
+       <height>281</height>
       </rect>
      </property>
      <property name="autoFillBackground">
@@ -387,6 +406,9 @@
      </attribute>
      <attribute name="horizontalHeaderHighlightSections">
       <bool>true</bool>
+     </attribute>
+     <attribute name="horizontalHeaderMinimumSectionSize">
+      <number>50</number>
      </attribute>
      <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
       <bool>true</bool>
@@ -437,11 +459,11 @@
       </property>
      </column>
     </widget>
-    <widget class="QPushButton" name="pushButton_2">
+    <widget class="QPushButton" name="inquiryBtn">
      <property name="geometry">
       <rect>
        <x>900</x>
-       <y>630</y>
+       <y>410</y>
        <width>112</width>
        <height>34</height>
       </rect>
@@ -450,17 +472,172 @@
       <string>조회</string>
      </property>
     </widget>
-    <widget class="QCheckBox" name="checkBox">
+    <widget class="QCheckBox" name="realtimeCheckBox">
      <property name="geometry">
       <rect>
        <x>750</x>
-       <y>640</y>
+       <y>420</y>
        <width>141</width>
        <height>22</height>
       </rect>
      </property>
      <property name="text">
       <string>실시간 조회</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_3">
+    <property name="geometry">
+     <rect>
+      <x>300</x>
+      <y>20</y>
+      <width>1041</width>
+      <height>351</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>자동주문 리스트</string>
+    </property>
+    <widget class="QTableWidget" name="automatedStocksTable">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>1021</width>
+       <height>281</height>
+      </rect>
+     </property>
+     <attribute name="horizontalHeaderDefaultSectionSize">
+      <number>195</number>
+     </attribute>
+     <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
+      <bool>false</bool>
+     </attribute>
+     <attribute name="horizontalHeaderStretchLastSection">
+      <bool>true</bool>
+     </attribute>
+     <column>
+      <property name="text">
+       <string>회사명</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>종목코드</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>자체평가 인덱스</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>250일 최고가</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>250일 최저가</string>
+      </property>
+     </column>
+    </widget>
+    <widget class="QPushButton" name="runAutoButton">
+     <property name="geometry">
+      <rect>
+       <x>760</x>
+       <y>310</y>
+       <width>112</width>
+       <height>34</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>실행</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="stopAutoButton">
+     <property name="geometry">
+      <rect>
+       <x>900</x>
+       <y>310</y>
+       <width>112</width>
+       <height>34</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>중지</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="addCodeLineEdit">
+     <property name="geometry">
+      <rect>
+       <x>100</x>
+       <y>310</y>
+       <width>171</width>
+       <height>31</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_7">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>310</y>
+       <width>81</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>종목코드</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="addCodeButton">
+     <property name="geometry">
+      <rect>
+       <x>460</x>
+       <y>310</y>
+       <width>112</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>추가</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="codeNameLineEdit_2">
+     <property name="geometry">
+      <rect>
+       <x>280</x>
+       <y>310</y>
+       <width>171</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color:rgb(170,255,255);</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_4">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>390</y>
+      <width>251</width>
+      <height>461</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>실행 로그</string>
+    </property>
+    <widget class="QTextEdit" name="logTextEdit">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>30</y>
+       <width>231</width>
+       <height>421</height>
+      </rect>
      </property>
     </widget>
    </widget>
