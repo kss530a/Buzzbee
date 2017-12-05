@@ -1,29 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4dee96f9-2731-449d-b835-68989fd96510" name="Default" comment="텐서플로우는 프로젝트2로 이동">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test3.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test_mysql.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tfData.py" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/getX.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/hyperParameters.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/input_sample.xlsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/interest_company.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/makeY.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/protect.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pytrader2.ui" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/savePrice.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test_bee.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/trainning_bee.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/transaction.py" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/pytra.py" afterPath="$PROJECT_DIR$/BuzzBee.py" />
+    <list default="true" id="4dee96f9-2731-449d-b835-68989fd96510" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/BuzzBee.ui" afterPath="$PROJECT_DIR$/BuzzBee.ui" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiwoom/Kiwoom2.py" afterPath="$PROJECT_DIR$/Kiwoom/Kiwoom2.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/make_sub_tables.py" afterPath="$PROJECT_DIR$/make_sub_tables.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/senario.py" afterPath="$PROJECT_DIR$/senario.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test.py" afterPath="$PROJECT_DIR$/test.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test3.py" afterPath="$PROJECT_DIR$/test3.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_mysql.py" afterPath="$PROJECT_DIR$/test_mysql.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -37,8 +21,8 @@
       <file leaf-file-name="BuzzBee.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BuzzBee.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="277">
-              <caret line="168" column="71" lean-forward="true" selection-start-line="168" selection-start-column="71" selection-end-line="168" selection-end-column="71" />
+            <state relative-caret-position="404">
+              <caret line="395" column="25" lean-forward="true" selection-start-line="395" selection-start-column="25" selection-end-line="395" selection-end-column="25" />
               <folding>
                 <element signature="e#0#16#0" expanded="true" />
                 <element signature="e#2256#3743#0" expanded="false" />
@@ -58,8 +42,8 @@
       <file leaf-file-name="senario.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/senario.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="298">
-              <caret line="55" column="36" lean-forward="true" selection-start-line="55" selection-start-column="36" selection-end-line="55" selection-end-column="36" />
+            <state relative-caret-position="440">
+              <caret line="66" column="0" lean-forward="true" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
               </folding>
@@ -70,8 +54,8 @@
       <file leaf-file-name="Kiwoom2.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Kiwoom/Kiwoom2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="384">
-              <caret line="164" column="40" lean-forward="true" selection-start-line="164" selection-start-column="40" selection-end-line="164" selection-end-column="40" />
+            <state relative-caret-position="20">
+              <caret line="166" column="0" lean-forward="true" selection-start-line="166" selection-start-column="0" selection-end-line="166" selection-end-column="0" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
                 <element signature="e#3612#3974#0" expanded="false" />
@@ -118,14 +102,16 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tfData.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="tfData.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tfData.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="308">
-              <caret line="14" column="28" lean-forward="true" selection-start-line="14" selection-start-column="28" selection-end-line="14" selection-end-column="28" />
+            <state relative-caret-position="29">
+              <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
               <folding>
+                <element signature="e#469#487#0" expanded="true" />
                 <element signature="e#959#1935#0" expanded="false" />
                 <element signature="e#1983#4014#0" expanded="false" />
+                <element signature="e#4068#7277#0" expanded="false" />
                 <element signature="e#7352#8430#0" expanded="false" />
                 <element signature="e#8772#8810#0" expanded="false" />
                 <element signature="e#9951#10040#0" expanded="false" />
@@ -137,18 +123,18 @@
       <file leaf-file-name="make_sub_tables.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/make_sub_tables.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="280">
-              <caret line="76" column="23" lean-forward="true" selection-start-line="76" selection-start-column="23" selection-end-line="76" selection-end-column="23" />
+            <state relative-caret-position="112">
+              <caret line="58" column="45" lean-forward="false" selection-start-line="58" selection-start-column="45" selection-end-line="58" selection-end-column="45" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="test_mysql.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="test_mysql.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/test_mysql.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="381">
-              <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+            <state relative-caret-position="168">
+              <caret line="6" column="51" lean-forward="false" selection-start-line="6" selection-start-column="51" selection-end-line="12" selection-end-column="15" />
               <folding />
             </state>
           </provider>
@@ -157,7 +143,7 @@
       <file leaf-file-name="test.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="437">
+            <state relative-caret-position="2016">
               <caret line="72" column="17" lean-forward="false" selection-start-line="72" selection-start-column="17" selection-end-line="72" selection-end-column="17" />
               <folding />
             </state>
@@ -167,11 +153,9 @@
       <file leaf-file-name="test3.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test3.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="151" column="69" lean-forward="true" selection-start-line="151" selection-start-column="69" selection-end-line="151" selection-end-column="69" />
-              <folding>
-                <element signature="e#24#38#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="344">
+              <caret line="272" column="23" lean-forward="false" selection-start-line="272" selection-start-column="23" selection-end-line="272" selection-end-column="23" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -187,7 +171,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>완료되었습니다</find>
       <find>del</find>
       <find>savePrice</find>
       <find>saveP</find>
@@ -217,6 +200,7 @@
       <find>cur</find>
       <find>update</find>
       <find>put</find>
+      <find>bsObj_sample_article</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -262,14 +246,14 @@
         <option value="$PROJECT_DIR$/savePrice.py" />
         <option value="$PROJECT_DIR$/getX.py" />
         <option value="$PROJECT_DIR$/pytra.py" />
-        <option value="$PROJECT_DIR$/test_mysql.py" />
         <option value="$PROJECT_DIR$/test.py" />
-        <option value="$PROJECT_DIR$/senario.py" />
         <option value="$PROJECT_DIR$/tfData.py" />
-        <option value="$PROJECT_DIR$/test3.py" />
         <option value="$PROJECT_DIR$/Kiwoom/Kiwoom2.py" />
         <option value="$PROJECT_DIR$/BuzzBee.py" />
         <option value="$PROJECT_DIR$/make_sub_tables.py" />
+        <option value="$PROJECT_DIR$/senario.py" />
+        <option value="$PROJECT_DIR$/test3.py" />
+        <option value="$PROJECT_DIR$/test_mysql.py" />
       </list>
     </option>
   </component>
@@ -331,7 +315,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.BuzzBee">
+  <component name="RunManager" selected="Python.test_mysql">
     <configuration name="BuzzBee" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -383,7 +367,7 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
     </configuration>
-    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="test_mysql" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -395,7 +379,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="Buzzbee" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test_mysql.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -420,17 +404,17 @@
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Python.make_sub_tables" />
       <item index="1" class="java.lang.String" itemvalue="Python.senario" />
-      <item index="2" class="java.lang.String" itemvalue="Python.test" />
-      <item index="3" class="java.lang.String" itemvalue="Python.tfData" />
-      <item index="4" class="java.lang.String" itemvalue="Python.BuzzBee" />
+      <item index="2" class="java.lang.String" itemvalue="Python.tfData" />
+      <item index="3" class="java.lang.String" itemvalue="Python.BuzzBee" />
+      <item index="4" class="java.lang.String" itemvalue="Python.test_mysql" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.BuzzBee" />
-        <item index="1" class="java.lang.String" itemvalue="Python.make_sub_tables" />
-        <item index="2" class="java.lang.String" itemvalue="Python.senario" />
-        <item index="3" class="java.lang.String" itemvalue="Python.tfData" />
-        <item index="4" class="java.lang.String" itemvalue="Python.test" />
+        <item index="0" class="java.lang.String" itemvalue="Python.test_mysql" />
+        <item index="1" class="java.lang.String" itemvalue="Python.BuzzBee" />
+        <item index="2" class="java.lang.String" itemvalue="Python.make_sub_tables" />
+        <item index="3" class="java.lang.String" itemvalue="Python.senario" />
+        <item index="4" class="java.lang.String" itemvalue="Python.tfData" />
       </list>
     </recent_temporary>
   </component>
@@ -458,9 +442,8 @@
   <component name="ToolWindowManager">
     <frame x="-11" y="-11" width="1942" height="1162" extended-state="6" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21197917" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32916668" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36145833" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28601253" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.315625" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32972974" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32972974" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39891893" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -473,6 +456,7 @@
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32916668" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
@@ -511,7 +495,8 @@
     <MESSAGE value="'trainning.py' 더미데이터 테스트 완료" />
     <MESSAGE value="getX, makeY 완성" />
     <MESSAGE value="실시간데이터 확보 완료" />
-    <option name="LAST_COMMIT_MESSAGE" value="실시간데이터 확보 완료" />
+    <MESSAGE value="텐서플로우는 프로젝트2로 이동" />
+    <option name="LAST_COMMIT_MESSAGE" value="텐서플로우는 프로젝트2로 이동" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -520,22 +505,10 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/protect.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/protect.py" />
     <entry file="file://$PROJECT_DIR$/transaction.py" />
     <entry file="file://$PROJECT_DIR$/BuzzBee.py" />
-    <entry file="file://$PROJECT_DIR$/trainning_bee.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="6" column="22" lean-forward="false" selection-start-line="6" selection-start-column="22" selection-end-line="6" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/trainning_bee.py" />
     <entry file="file://$PROJECT_DIR$/test.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="112">
@@ -543,13 +516,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hyperParameters.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/hyperParameters.py" />
     <entry file="file://$PROJECT_DIR$/BuzzBee.py" />
     <entry file="file://$PROJECT_DIR$/test.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -565,13 +532,7 @@
     <entry file="file://$PROJECT_DIR$/Kiwoom/test.py" />
     <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36-32/Lib/site-packages/jpype/_jpackage.py" />
     <entry file="file://$PROJECT_DIR$/Kiwoom/stock_price_kiwoom.csv" />
-    <entry file="file://$PROJECT_DIR$/trainning_bee.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="28">
-          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/trainning_bee.py" />
     <entry file="file://$PROJECT_DIR$/prac/ans_RNN.stock.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1764">
@@ -579,13 +540,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hyperParameters.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-644">
-          <caret line="7" column="8" lean-forward="false" selection-start-line="7" selection-start-column="8" selection-end-line="7" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/hyperParameters.py" />
     <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36-32/Lib/site-packages/pandas/core/frame.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3404">
@@ -593,22 +548,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pytrader2.ui">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="562">
-          <caret line="464" column="5" lean-forward="false" selection-start-line="464" selection-start-column="5" selection-end-line="464" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/pytrader2.ui" />
     <entry file="file://$PROJECT_DIR$/sell_list.txt" />
-    <entry file="file://$PROJECT_DIR$/test_bee.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="594">
-          <caret line="156" column="0" lean-forward="false" selection-start-line="156" selection-start-column="0" selection-end-line="156" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/test_bee.py" />
     <entry file="file://$PROJECT_DIR$/clawler.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="8176">
@@ -639,25 +581,19 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/kiwoom.log">
-      <provider selected="true" editor-type-id="LogFileEditorProvider">
+      <provider editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
-      <provider editor-type-id="text-editor">
+      <provider selected="true" editor-type-id="LogFileEditorProvider">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/interest_company.txt" />
-    <entry file="file://$PROJECT_DIR$/makeY.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5824">
-          <caret line="211" column="0" lean-forward="false" selection-start-line="211" selection-start-column="0" selection-end-line="211" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/makeY.py" />
     <entry file="file://$PROJECT_DIR$/test2.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1204">
@@ -703,14 +639,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/getX.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="473">
-          <caret line="74" column="0" lean-forward="false" selection-start-line="74" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/getX.py" />
     <entry file="file://$USER_HOME$/.PyCharmEdu4.0/system/python_stubs/1520456557/PyQt5/QAxContainer.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="203">
@@ -719,54 +648,63 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test_mysql.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="381">
-          <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/protect.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/protect.py" />
     <entry file="file://$PROJECT_DIR$/test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="437">
+        <state relative-caret-position="2016">
           <caret line="72" column="17" lean-forward="false" selection-start-line="72" selection-start-column="17" selection-end-line="72" selection-end-column="17" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/senario.py">
+    <entry file="file://$PROJECT_DIR$/trainning_bee.py" />
+    <entry file="file://$PROJECT_DIR$/tfData.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="298">
-          <caret line="55" column="36" lean-forward="true" selection-start-line="55" selection-start-column="36" selection-end-line="55" selection-end-column="36" />
+        <state relative-caret-position="29">
+          <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
           <folding>
-            <element signature="e#0#21#0" expanded="true" />
+            <element signature="e#469#487#0" expanded="true" />
+            <element signature="e#959#1935#0" expanded="false" />
+            <element signature="e#1983#4014#0" expanded="false" />
+            <element signature="e#4068#7277#0" expanded="false" />
+            <element signature="e#7352#8430#0" expanded="false" />
+            <element signature="e#8772#8810#0" expanded="false" />
+            <element signature="e#9951#10040#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test3.py">
+    <entry file="file://$PROJECT_DIR$/make_sub_tables.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="151" column="69" lean-forward="true" selection-start-line="151" selection-start-column="69" selection-end-line="151" selection-end-column="69" />
+        <state relative-caret-position="112">
+          <caret line="58" column="45" lean-forward="false" selection-start-line="58" selection-start-column="45" selection-end-line="58" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BuzzBee.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="404">
+          <caret line="395" column="25" lean-forward="true" selection-start-line="395" selection-start-column="25" selection-end-line="395" selection-end-column="25" />
           <folding>
-            <element signature="e#24#38#0" expanded="true" />
+            <element signature="e#0#16#0" expanded="true" />
+            <element signature="e#2256#3743#0" expanded="false" />
+            <element signature="e#4800#5135#0" expanded="false" />
+            <element signature="e#6064#6298#0" expanded="false" />
+            <element signature="e#6337#6578#0" expanded="false" />
+            <element signature="e#6622#6994#0" expanded="false" />
+            <element signature="e#7029#7718#0" expanded="false" />
+            <element signature="e#9876#10169#0" expanded="false" />
+            <element signature="e#10175#10206#0" expanded="false" />
+            <element signature="e#11521#13870#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Kiwoom/Kiwoom2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="384">
-          <caret line="164" column="40" lean-forward="true" selection-start-line="164" selection-start-column="40" selection-end-line="164" selection-end-column="40" />
+        <state relative-caret-position="20">
+          <caret line="166" column="0" lean-forward="true" selection-start-line="166" selection-start-column="0" selection-end-line="166" selection-end-column="0" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
             <element signature="e#3612#3974#0" expanded="false" />
@@ -812,52 +750,29 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/BuzzBee.py">
+    <entry file="file://$PROJECT_DIR$/senario.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="277">
-          <caret line="168" column="71" lean-forward="true" selection-start-line="168" selection-start-column="71" selection-end-line="168" selection-end-column="71" />
+        <state relative-caret-position="440">
+          <caret line="66" column="0" lean-forward="true" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
           <folding>
-            <element signature="e#0#16#0" expanded="true" />
-            <element signature="e#2256#3743#0" expanded="false" />
-            <element signature="e#4800#5135#0" expanded="false" />
-            <element signature="e#6064#6298#0" expanded="false" />
-            <element signature="e#6337#6578#0" expanded="false" />
-            <element signature="e#6622#6994#0" expanded="false" />
-            <element signature="e#7029#7718#0" expanded="false" />
-            <element signature="e#9876#10169#0" expanded="false" />
-            <element signature="e#10175#10206#0" expanded="false" />
-            <element signature="e#11521#13870#0" expanded="false" />
+            <element signature="e#0#21#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/make_sub_tables.py">
+    <entry file="file://$PROJECT_DIR$/test3.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="76" column="23" lean-forward="true" selection-start-line="76" selection-start-column="23" selection-end-line="76" selection-end-column="23" />
+        <state relative-caret-position="344">
+          <caret line="272" column="23" lean-forward="false" selection-start-line="272" selection-start-column="23" selection-end-line="272" selection-end-column="23" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/trainning_bee.py">
+    <entry file="file://$PROJECT_DIR$/test_mysql.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="532">
-          <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+        <state relative-caret-position="168">
+          <caret line="6" column="51" lean-forward="false" selection-start-line="6" selection-start-column="51" selection-end-line="12" selection-end-column="15" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tfData.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="14" column="28" lean-forward="true" selection-start-line="14" selection-start-column="28" selection-end-line="14" selection-end-column="28" />
-          <folding>
-            <element signature="e#959#1935#0" expanded="false" />
-            <element signature="e#1983#4014#0" expanded="false" />
-            <element signature="e#7352#8430#0" expanded="false" />
-            <element signature="e#8772#8810#0" expanded="false" />
-            <element signature="e#9951#10040#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>

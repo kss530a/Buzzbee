@@ -54,6 +54,17 @@ if __name__ == "__main__":
 
     # 주식정보 저장하기
     code_list =["590010", "035420", "035720", "036570", "039130", "039570", "010950", "009290", "004170", "039490"]
+    # update interest_company set eval_index=0.844 where pcode='590010';
+    # update interest_company set eval_index=0.123 where pcode='035420';
+    # update interest_company set eval_index=0.177 where pcode='035720';
+    # update interest_company set eval_index=0.243 where pcode='036570';
+    # update interest_company set eval_index=0.167 where pcode='039130';
+    # update interest_company set eval_index=0.268 where pcode='039570';
+    # update interest_company set eval_index=0.120 where pcode='010950';
+    # update interest_company set eval_index=0.109 where pcode='009290';
+    # update interest_company set eval_index=0.208 where pcode='004170';
+    # update interest_company set eval_index=0.159 where pcode='039490';
+
     for code in code_list:
         makeY(code)
         print(code+"의 Y값 구하기 완료 ")

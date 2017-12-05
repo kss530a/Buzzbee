@@ -56,7 +56,7 @@ def create_interest_company_table():
         sql_create_tables = "create table interest_company(" \
                             "pname varchar(40), " \
                             "pcode varchar(8), " \
-                            "eval_index DECIMAL(1,3), " \
+                            "eval_index float, " \
                             "high250 mediumint, " \
                             "low250 mediumint, " \
                             "primary key (pcode), "\

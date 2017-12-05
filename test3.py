@@ -8,21 +8,21 @@ from konlpy.tag import Twitter
 import re
 import csv
 import pandas
-from sklearn.cluster import KMeans
+from sklearn.cluster import  KMeans
 import threading
 
 class Crawler:
         conn = None
         cur = None
-        start_page = 30
-        end_page = 31
+        start_page = 20
+        end_page = 200
         input_Noun_list = [] # input 데이터화 할 명사 키워드 리스트
         #input_Verb_list = []  # input 데이터화 할 동사 키워드 리스트
         input_Noun_table_counter = 0 # 오라클 DB에의 최대 속성 수 는 1,000 개 이므로 여러 개의 input 테이블이 필요함
         #input_Verb_table_counter = 0  # 오라클 DB에의 최대 속성 수 는 1,000 개 이므로 여러 개의 input 테이블이 필요함
         last_crawled_news_date = None # 실시간으로 기사를 크롤링할 때 가장 최근 작업 기사의 정보를 저장
         input_cluster_dic = {} # 키워드와 클러스터 그룹을 매칭시키는 딕셔너리
-        cluster_set = 10 # 클러스터 그룹 수
+        cluster_set = 4000 # 클러스터 그룹 수
         cluster_table_counter = 0 # 클러스터 테이블 수
 
         Noun_filter = ['플레이어', '내용', '본문', '추가', '기자', '우회', '오류', '함수', '경제', '서울', '뉴스',
@@ -352,7 +352,10 @@ class Crawler:
                         if 'href' in link_breaking_news_article.attrs:  # 해당 페이지 안에 있는 모든 속보 기사 링크를 첫 번째부터 마지막까지 반복적으로 출력함
                             link_one_article = link_breaking_news_article.attrs['href'] # 개별 기사의 링크
                             html_one_article = urlopen(link_one_article)
-                            bsObj_one_article = BeautifulSoup(html_one_article.read(), "html.parser")
+                            try:
+                                bsObj_one_article = BeautifulSoup(html_one_article.read(), "html.parser")
+                            except:
+                                continue
                             # 기사 내용에 따라(시사, 연예 등) html의 양식이 달라져 기사 제목 및 내용을 가져오지 못하는 경우가 있어서 조건문을 통해 반복적인 작업을 실행해야함
                             # 날짜 및 시간 정보를 먼저 수집해서 코드 운용시간 단축
                             date_one_article = bsObj_one_article.findAll("span", {"class": "t11"})  # 기사 날짜 가져오기(시사)
@@ -723,7 +726,10 @@ class Crawler:
                             article_oid = link_one_article[-18:-15]
                             article_aid = link_one_article[-10:]
                             html_one_article = urlopen(link_one_article)
-                            bsObj_one_article = BeautifulSoup(html_one_article.read(), "html.parser")
+                            try:
+                                bsObj_one_article = BeautifulSoup(html_one_article.read(), "html.parser")
+                            except:
+                                continue
                             # 기사 내용에 따라(시사, 연예 등) html의 양식이 달라져 기사 제목 및 내용을 가져오지 못하는 경우가 있어서 조건문을 통해 반복적인 작업을 실행해야함
                             # 날짜 및 시간 정보를 먼저 수집해서 코드 운용시간 단축
                             date_one_article = bsObj_one_article.findAll("span", {"class": "t11"})  # 기사 날짜 가져오기(시사)
@@ -1054,7 +1060,10 @@ class Crawler:
                     link_test_article = bsObj_breaking_news_home.find("a", {"class": "nclicks(fls.list)"})
                     link_sample_article = link_test_article.attrs['href']  # 개별 기사의 링크
                     html_sample_article = urlopen(link_sample_article)
-                    bsObj_sample_article = BeautifulSoup(html_sample_article.read(), "html.parser")
+                    try:
+                        bsObj_one_article = BeautifulSoup(html_one_article.read(), "html.parser")
+                    except:
+                        continue
                     # 기사 내용에 따라(시사, 연예 등) html의 양식이 달라져 기사 제목 및 내용을 가져오지 못하는 경우가 있어서 조건문을 통해 반복적인 작업을 실행해야함
                     # 날짜 및 시간 정보를 먼저 수집해서 코드 운용시간 단축
                     date_sample_article = bsObj_sample_article.findAll("span", {"class": "t11"})  # 기사 날짜 가져오기(시사)
@@ -1116,7 +1125,10 @@ class Crawler:
                             article_oid = link_one_article[-18:-15]
                             article_aid = link_one_article[-10:]
                             html_one_article = urlopen(link_one_article)
-                            bsObj_one_article = BeautifulSoup(html_one_article.read(), "html.parser")
+                            try:
+                                bsObj_one_article = BeautifulSoup(html_one_article.read(), "html.parser")
+                            except:
+                                continue
                             # 기사 내용에 따라(시사, 연예 등) html의 양식이 달라져 기사 제목 및 내용을 가져오지 못하는 경우가 있어서 조건문을 통해 반복적인 작업을 실행해야함
                             # 날짜 및 시간 정보를 먼저 수집해서 코드 운용시간 단축
                             date_one_article = bsObj_one_article.findAll("span", {"class": "t11"})  # 기사 날짜 가져오기(시사)
@@ -1357,7 +1369,10 @@ class Crawler:
                 if 'href' in link_breaking_news_article.attrs:  # 해당 페이지 안에 있는 모든 속보 기사 링크를 첫 번째부터 마지막까지 반복적으로 출력함
                     link_one_article = link_breaking_news_article.attrs['href']  # 개별 기사의 링크
                     html_one_article = urlopen(link_one_article)
-                    bsObj_one_article = BeautifulSoup(html_one_article.read(), "html.parser")
+                    try:
+                        bsObj_one_article = BeautifulSoup(html_one_article.read(), "html.parser")
+                    except:
+                        continue
                     # 기사 내용에 따라(시사, 연예 등) html의 양식이 달라져 기사 제목 및 내용을 가져오지 못하는 경우가 있어서 조건문을 통해 반복적인 작업을 실행해야함
                     # 날짜 및 시간 정보를 먼저 수집해서 코드 운용시간 단축
                     date_one_article = bsObj_one_article.findAll("span", {"class": "t11"})  # 기사 날짜 가져오기(시사)
