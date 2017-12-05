@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4dee96f9-2731-449d-b835-68989fd96510" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/make_sub_tables.py" afterPath="$PROJECT_DIR$/make_sub_tables.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/senario.py" afterPath="$PROJECT_DIR$/senario.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test3.py" afterPath="$PROJECT_DIR$/test3.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_mysql.py" afterPath="$PROJECT_DIR$/test_mysql.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -496,7 +491,8 @@
     <MESSAGE value="getX, makeY 완성" />
     <MESSAGE value="실시간데이터 확보 완료" />
     <MESSAGE value="텐서플로우는 프로젝트2로 이동" />
-    <option name="LAST_COMMIT_MESSAGE" value="텐서플로우는 프로젝트2로 이동" />
+    <MESSAGE value="최종 발표 직전" />
+    <option name="LAST_COMMIT_MESSAGE" value="최종 발표 직전" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
