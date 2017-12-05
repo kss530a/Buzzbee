@@ -1,8 +1,9 @@
-from PyQt5.QtCore import QTime
-from PyQt5.QtWidgets import QApplication
-import sys
-import datetime
-from Kiwoom.Kiwoom2 import *
+# from PyQt5.QtCore import QTime
+# from PyQt5.QtWidgets import QApplication
+# import sys
+# import datetime
+# from Kiwoom.Kiwoom import *
+import os
 
 # pcode="039490"
 # tempMaxPrice = 999999
@@ -44,18 +45,18 @@ from Kiwoom.Kiwoom2 import *
 #     print("asd")
 #
 
-app = QApplication(sys.argv)
-kiwoom = Kiwoom()
-kiwoom.commConnect()
-screenNo = "0101"
-codes= "039490;035420"
-fids="10"
-kiwoom.setRealReg(screenNo, codes, fids, "0") #이벤트 루프 생성되어 무제한 발생, 프로그램 종료시 이벤트 루프 exit
-print("setRealReg 완료")
-kiwoom.checkRealTimePrice(codes, fids)
-print("now : "+kiwoom.nowPrice+", tempMax :"+ kiwoom.tempMaxPrice)
-kiwoom.setRealRemove(screenNo, codes)
-kiwoom.saveRealTimePrice()
+# app = QApplication(sys.argv)
+# kiwoom = Kiwoom()
+# kiwoom.comm_connect()
+# screenNo = "0101"
+# codes= "039490;035420"
+# fids="10"
+# kiwoom.setRealReg(screenNo, codes, fids, "0") #이벤트 루프 생성되어 무제한 발생, 프로그램 종료시 이벤트 루프 exit
+# print("setRealReg 완료")
+# kiwoom.checkRealTimePrice(codes, fids)
+# print("now : "+kiwoom.nowPrice+", tempMax :"+ kiwoom.tempMaxPrice)
+# kiwoom.setRealRemove(screenNo, codes)
+# kiwoom.saveRealTimePrice()
 '''
 1. setRealReg by interest_company
     1.1 change setRealReg by adding interest_company
@@ -63,3 +64,12 @@ kiwoom.saveRealTimePrice()
 3. saveRealTimePrice for every 1 min
 4. setRealRemove by removing interest_company
 '''
+lst = [1,2,3,4,3,2,4,5]
+lst.remove(3)
+print(lst)
+
+
+list = ["10", "12"]
+list.remove("12")
+print(list)
+

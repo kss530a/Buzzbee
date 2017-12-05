@@ -1,9 +1,9 @@
 from PyQt5 import uic
-from Kiwoom.Kiwoom import *
-from getX import *
-import savePrice
-from transaction import *
-from interest_company import *
+from PyQt5.QtCore import QTimer
+
+from Kiwoom.Kiwoom2 import *
+from make_sub_tables import *
+from tfData import *
 
 '''
 -------------------------------------------------------------------
@@ -28,11 +28,48 @@ from interest_company import *
 +@ UI 만들기
 '''
 
-app = QApplication(sys.argv)
-company = "039490"
-start_date ="20171120000000"
-end_date = "20171125000000"
+if __name__ == "__main__":
+    print("---------Scenario.1 시작---------")
+    # app = QApplication(sys.argv)
+    # kiwoom = Kiwoom()
+    # kiwoom.commConnect()
+    # print("키움API 접속 완료")
 
-makeY.makeY(company)
-#dataX=getX(start_date, end_date)
-#print(dataX)
+    # 기본 테이블 생성
+    # create_company_info_table()
+    # creat_stock_price_table()
+    # create_interest_company_table()
+    # print("기본테이블 생성 완료")
+
+    # 기본 회사정보 입력
+    # kiwoom.insertCompanyInfoTable()
+    # print("회사정보 호출 및 저장 완료")
+
+    # 테스트 할 회사명과 날짜
+    # company = "039490"
+    # Y_start_date ="20171127000000"
+    # Y_end_date = "20171201000000"
+    # X_start_date ="20171121000000"
+    # X_end_date = "20171122000000"
+
+    # 주식정보 저장하기
+    code_list =["590010", "035420", "035720", "036570", "039130", "039570", "010950", "009290", "004170", "039490"]
+    for code in code_list:
+        makeY(code)
+        print(code+"의 Y값 구하기 완료 ")
+        print("------------------------")
+
+
+
+    #
+    # makeY(company)
+    # print("Y데이터 생성 완료")
+    #
+    # dataY=getY(company, Y_start_date, Y_end_date)
+    # print("dataY 호출 완료.")
+    # print("첫번째 Y 값 : "+str(dataY[0]))
+    # dataX=getX(str(X_start_date), str(X_end_date))
+    # print("키움API 접속 완료")
+    # print("첫번째 X 값 : "+str(dataX[0]))
+    print("---------Scenario1 종료---------")
+

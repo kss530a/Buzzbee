@@ -23,6 +23,9 @@
       <height>351</height>
      </rect>
     </property>
+    <property name="autoFillBackground">
+     <bool>true</bool>
+    </property>
     <property name="title">
      <string notr="true">수동주문</string>
     </property>
@@ -255,6 +258,9 @@
       <height>461</height>
      </rect>
     </property>
+    <property name="autoFillBackground">
+     <bool>true</bool>
+    </property>
     <property name="title">
      <string>잔고 및 보유종목현황</string>
     </property>
@@ -475,14 +481,14 @@
     <widget class="QCheckBox" name="realtimeCheckBox">
      <property name="geometry">
       <rect>
-       <x>750</x>
-       <y>420</y>
+       <x>790</x>
+       <y>410</y>
        <width>141</width>
-       <height>22</height>
+       <height>31</height>
       </rect>
      </property>
      <property name="text">
-      <string>실시간 조회</string>
+      <string>실시간</string>
      </property>
     </widget>
    </widget>
@@ -494,6 +500,9 @@
       <width>1041</width>
       <height>351</height>
      </rect>
+    </property>
+    <property name="autoFillBackground">
+     <bool>true</bool>
     </property>
     <property name="title">
      <string>자동주문 리스트</string>
@@ -508,7 +517,7 @@
       </rect>
      </property>
      <attribute name="horizontalHeaderDefaultSectionSize">
-      <number>195</number>
+      <number>190</number>
      </attribute>
      <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
       <bool>false</bool>
@@ -547,7 +556,7 @@
       <rect>
        <x>760</x>
        <y>310</y>
-       <width>112</width>
+       <width>131</width>
        <height>34</height>
       </rect>
      </property>
@@ -558,9 +567,9 @@
     <widget class="QPushButton" name="stopAutoButton">
      <property name="geometry">
       <rect>
-       <x>900</x>
+       <x>881</x>
        <y>310</y>
-       <width>112</width>
+       <width>131</width>
        <height>34</height>
       </rect>
      </property>
@@ -571,9 +580,9 @@
     <widget class="QLineEdit" name="addCodeLineEdit">
      <property name="geometry">
       <rect>
-       <x>100</x>
+       <x>90</x>
        <y>310</y>
-       <width>171</width>
+       <width>131</width>
        <height>31</height>
       </rect>
      </property>
@@ -588,15 +597,15 @@
       </rect>
      </property>
      <property name="text">
-      <string>종목코드</string>
+      <string>관심종목</string>
      </property>
     </widget>
     <widget class="QPushButton" name="addCodeButton">
      <property name="geometry">
       <rect>
-       <x>460</x>
+       <x>400</x>
        <y>310</y>
-       <width>112</width>
+       <width>121</width>
        <height>31</height>
       </rect>
      </property>
@@ -607,7 +616,7 @@
     <widget class="QLineEdit" name="codeNameLineEdit_2">
      <property name="geometry">
       <rect>
-       <x>280</x>
+       <x>220</x>
        <y>310</y>
        <width>171</width>
        <height>31</height>
@@ -615,6 +624,19 @@
      </property>
      <property name="styleSheet">
       <string notr="true">background-color:rgb(170,255,255);</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="delCodeButton">
+     <property name="geometry">
+      <rect>
+       <x>510</x>
+       <y>310</y>
+       <width>112</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>삭제</string>
      </property>
     </widget>
    </widget>
@@ -626,6 +648,9 @@
       <width>251</width>
       <height>461</height>
      </rect>
+    </property>
+    <property name="autoFillBackground">
+     <bool>true</bool>
     </property>
     <property name="title">
      <string>실행 로그</string>

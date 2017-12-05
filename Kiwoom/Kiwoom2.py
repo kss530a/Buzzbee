@@ -1,19 +1,9 @@
-"""
-Kiwoom 클래스는 OCX를 통해 API 함수를 호출할 수 있도록 구현되어 있습니다.
-OCX 사용을 위해 QAxWidget 클래스를 상속받아서 구현하였으며,
-주식(현물) 거래에 필요한 메서드들만 구현하였습니다.
-author: 서경동
-last edit: 2017. 02. 05
-"""
-
-
 import sys
 import logging
 import logging.config
-import cx_Oracle as mysql
+import pymysql as mysql
 import datetime
 import time
-from PyQt5.QtCore import Qt, QTimer, QTime
 from PyQt5.QAxContainer import QAxWidget
 from PyQt5.QtCore import QEventLoop
 from PyQt5.QtWidgets import QApplication
@@ -23,6 +13,7 @@ from pandas import DataFrame
 
 class Kiwoom(QAxWidget):
 
+    ############ 생성자
     def __init__(self):
         super().__init__()
 
@@ -30,7 +21,8 @@ class Kiwoom(QAxWidget):
         self.setControl("KHOPENAPI.KHOpenAPICtrl.1")
 
         # DB 접속
-        self.conn = mysql.connect("seungsu", "tmdtn12", "orcl")
+        self.conn = mysql.connect(host='localhost',user='seungsu',password='tmdtn12',
+                                        db='seungsu', charset='utf8')
         self.cur = self.conn.cursor()
 
         # Loop 변수
@@ -68,12 +60,14 @@ class Kiwoom(QAxWidget):
         self.testdata = []
         self.tempMaxPrice = {}
         self.nowPrice={}
+        self.interestCompanyCode= []
 
         # 키움API는 1초당 최대 5회의 TR만 허용
         self.TR_REQ_TIME_INTERVAL=0.2
 
         # 보유종목 정보
         self.opw00018Data = {'accountEvaluation': [], 'stocks': []}
+        self.getInterestCompany()
 
         # signal & slot
         self.OnEventConnect.connect(self.eventConnect)
@@ -90,10 +84,8 @@ class Kiwoom(QAxWidget):
         self.log = logging.getLogger('Kiwoom')
 
 
-    ###############################################################
-    # 로깅용 메서드 정의                                               #
-    ###############################################################
 
+    ''' -------------로깅용 메서드 정의------------- '''
     def logger(origin):
         def wrapper(*args, **kwargs):
             args[0].log.debug('{} args - {}, kwargs - {}'.format(origin.__name__, args, kwargs))
@@ -101,10 +93,10 @@ class Kiwoom(QAxWidget):
 
         return wrapper
 
-    ###############################################################
-    # 이벤트 정의                                                    #
-    ###############################################################
 
+    ''' -------------이벤트 정의------------- '''
+
+    # 로그인 이벤트
     def eventConnect(self, returnCode):
         """
         통신 연결 상태 변경시 이벤트
@@ -119,13 +111,13 @@ class Kiwoom(QAxWidget):
                 self.server = self.getLoginInfo("GetServerGubun", True)
 
                 if len(self.server) == 0 or self.server != "1":
-                    self.msg += "실서버 연결 성공" + "\r\n\r\n"
+                    self.msg += "실서버 연결 성공" + "\r\n"
 
                 else:
-                    self.msg += "모의투자서버 연결 성공" + "\r\n\r\n"
+                    self.msg += "모의투자서버 연결 성공" + "\r\n"
 
             else:
-                self.msg += "연결 끊김: 원인 - " + ReturnCode.CAUSE[returnCode] + "\r\n\r\n"
+                self.msg += "연결 끊김: 원인 - " + ReturnCode.CAUSE[returnCode] + "\r\n"
 
         except Exception as error:
             self.log.error('eventConnect {}'.format(error))
@@ -139,6 +131,7 @@ class Kiwoom(QAxWidget):
             except AttributeError:
                 pass
 
+    # 서버요청에 따른 처리내용 전달 이벤트
     def receiveMsg(self, screenNo, requestName, trCode, msg):
         """
         수신 메시지 이벤트
@@ -149,9 +142,10 @@ class Kiwoom(QAxWidget):
         :param msg: string - 서버로 부터의 메시지
         """
 
-        self.msg += requestName + ": " + msg + "\r\n\r\n"
+        self.msg += requestName + ": " + msg + "\r\n"
 
-    def update_interest_company(self, company):
+    # 관심종목 추가로 인한 250high, 250low 값 호출 후 DB에 업데이트
+    def updateInterestCompany(self, company):
         self.setInputValue("종목코드", company)
         self.commRqData("주식기본정보요청", "opt10001", 0, "0101")
 
@@ -161,27 +155,54 @@ class Kiwoom(QAxWidget):
         try:
         #db에 저장, 마지막 값 "" => 제거
             sql_update_tables = "update interest_company " \
-                                "set high250='"+str(high250)+"', " \
-                                "low250='"+str(low250)+"' " \
+                                "set high250="+str(high250)+", " \
+                                "low250="+str(low250)+" " \
                                 "where pcode='"+company+"'"
+            print(sql_update_tables)
             self.cur.execute(sql_update_tables)
             print("update_interest_company Complete")
             self.conn.commit()
         except mysql.DatabaseError as e:
             print('update_interest_company Error : ', e)
 
+    # Kiwoom에서 모든 종목를 받아와 company_info 테이블에 저장
+    def insertCompanyInfoTable(self):
+        #pcode 가져오기
+        ret = self.dynamicCall("GetCodeListByMarket(QString)", ["0"])
+        kospi_code_list = ret.split(';')
+
+        #pname 가져오기
+        kospi_code_name_list = []
+        for i in kospi_code_list:
+            name = self.dynamicCall("GetMasterCodeName(QString)", [i])
+            kospi_code_name_list.append(name)
+
+        try:
+        #db에 저장, 마지막 값 "" => 제거
+            for i in range(len(kospi_code_list)-1):
+                sql_insert_tables = "insert into company_info(pcode, pname) " \
+                                    "values('" + kospi_code_list[i] + "', '" \
+                                    + kospi_code_name_list[i] + "')"
+                #확인용 print(sql_insert_tables)
+                self.cur.execute(sql_insert_tables)
+            print("company_info 테이블 정보 입력 완료")
+            self.conn.commit()
+        except mysql.DatabaseError as e:
+            print('insert_company_info_table Error : ', e)
+
+    # 특정 회사의 조회 가능한 모든 가격정보를 DB에 저장
     def savePrice(self, company):
         self.data = {'date': [], 'high': []}
 
         # 분봉주가 요청(opt10080)
-        time.sleep(self.TR_REQ_TIME_INTERVAL)
+        time.sleep(0.5)
         self.setInputValue("종목코드", company)
         self.setInputValue("틱범위", "1:1분")
         self.setInputValue("수정주가구분", "1")
         self.commRqData("주식분봉차트조회요청", "opt10080", 0, "0101")
 
         while self.inquiry == '2':
-            time.sleep(self.TR_REQ_TIME_INTERVAL)
+            time.sleep(0.5)
             self.setInputValue("종목코드", company)
             self.setInputValue("틱범위", "1:1분")
             self.setInputValue("수정주가구분", "1")
@@ -192,18 +213,16 @@ class Kiwoom(QAxWidget):
         # DB에 접속
         try:
             # DB에 저장,  형태:20171127141500,-87000
+            # str_to_date('20171127141500', '$Y%m%d%H%i%s')
             for i in range(len(self.data['date'])):
-                year = self.data['date'][i][0:4]
-                month = self.data['date'][i][4:6]
-                day = self.data['date'][i][6:8]
-                hour = self.data['date'][i][8:10]
-                min = self.data['date'][i][10:12]
-                # "insert into stock_price values(to_date('2017-11-27 14:15:00', 'yyyy-mm-dd hh24:mi:ss'), 'company', 87000)"
+                date = str(self.data['date'][i])
+                date = date[:-10]+"-"+date[-10:-8]+"-"+date[-8:-6]+" "+date[-6:-4]+":"+date[-4:-2]+":"+date[-2:]
+                print(date)
+                # "insert into stock_price values(str_to_date('2017-11-27 14:15:00', '%Y-%m-%d %H:%i:%s'), 'company', 87000)"
                 sql_insert_tables = "insert into stock_price(st_date, pcode, price) " \
-                                    "values(to_date(\'" + str(year) + "-" + str(month) + "-" \
-                                    + str(day) + " " + str(hour) + ":" + str(min) + \
-                                    ":00\', \'yyyy-mm-dd hh24:mi:ss\'), " + "\'" + company + "\', " + \
-                                    self.data['high'][i] + ")"
+                                    "values(str_to_date('"+date+"', '%Y-%m-%d %H:%i:%s'), " \
+                                    "'"+ company + "', " + self.data['high'][i] + ")"
+                print(sql_insert_tables)
                 self.cur.execute(sql_insert_tables)
             self.conn.commit()
         except mysql.DatabaseError as e:
@@ -211,8 +230,8 @@ class Kiwoom(QAxWidget):
 
         print("savePrice Complete")
 
-    # UI에서 입력받은 pcode를 사용하여 DB에 저장함
-    def insert_interest_company_table(self, pcode):
+    # UI에서 입력받은 관심종목을 DB에 저장
+    def insertInterestCompanyTable(self, pcode):
         try:
             sql_select_tables = "select pname from company_info " \
                                 "where pcode='"+pcode+"'"
@@ -224,13 +243,28 @@ class Kiwoom(QAxWidget):
                                 "values('"+pcode+"', '"+pname+"')"
 
             self.cur.execute(sql_update_tables)
-            print("insert_interest_company_table Complete")
+            self.msg = "관심종목에 [종목코드 "+str(pcode)+"] 추가 완료되었습니다" + "\r\n"
+            print("insertInterestCompanyTable Complete")
             self.conn.commit()
         except mysql.DatabaseError as e:
-            print('insert_interest_company_table Error : ', e)
+            print('insertInterestCompanyTable Error : ', e)
 
-    # interest_company table에 있는 레코드 호출하여,
-    # interestCompany 에 저장
+    # UI에서 입력받은 관심종목을 DB에서 제거
+    def deleteInterestCompany(self, pcode):
+        try:
+            # todo 리스트 리무브 동작 체크
+            # self.interestCompanyCode.remove(pcode)
+            sql_update_tables = "delete from interest_company " \
+                                "where pcode='" + pcode + "'"
+
+            self.cur.execute(sql_update_tables)
+            self.msg = "관심종목에서 [종목코드 "+str(pcode)+"] 제거 완료되었습니다"+"\r\n"
+            print("deleteInterestCompany Complete")
+            self.conn.commit()
+        except mysql.DatabaseError as e:
+            print('deleteInterestCompany Error : ', e)
+
+    # 관심종목 리스트를 DB에서 호출
     def getInterestCompany(self):
         self.interestCompanyCode= []
         try:
@@ -246,16 +280,17 @@ class Kiwoom(QAxWidget):
             e.msg = "getInterestCompany() 에러"
             self.showDialog('Critical', e)
 
-
-    """
-    메인에서 10초마다 실행시킴
-    10초마다 최대값으로 갱신
-    savaRealTimePrice()에서 매1분마다 해당 최대값을 해당분으로 저장
-    :param pcodes: string - 종목코드 리스트(종목코드;종목코드;...)
-    :param fids: string - fid 리스트(fid;fid;...)
-    :return
-    """
+    # 실시간 주가데이터를 통하여 분봉 고가 체크
+    # todo need to check for RealTime System
     def checkRealTimePrice(self):
+        """
+        메인에서 10초마다 실행시킴
+        10초마다 최대값으로 갱신됨
+        savaRealTimePrice()에서 매1분마다 해당 최대값을 해당분으로 저장
+        :param pcodes: string - 종목코드 리스트(종목코드;종목코드;...)
+        :param fids: string - fid 리스트(fid;fid;...)
+        :return
+        """
         #receiveRealData를 통해 저장된 데이터를 tempMaxPrice를 저장
         if not self.nowPrice:
             print("실시간 정보가 없습니다.")
@@ -267,18 +302,21 @@ class Kiwoom(QAxWidget):
             print(code +"의 현재가격 : "+ self.nowPrice[''.format(code)]+
                   ", 최근 고가 : "+ self.tempMaxPrice[''.format(code)])
 
-    # 60초에 한번씩 실행
+    # 실시간 체크된 주가정보를 분단위로 DB에 저장
+    # todo need to check for RealTime System
     def saveRealTimePrice(self, pcodes):
-        # 최고가를 해당 분의 가격으로 DB에 저장한다.
-        # getRealTimePrice()에서 MaxPrice['pcode']=tempMaxPrice의 형태로 저장한
-        # 가격을 DB에 저장
-        self.realTimeCodeList
+        """
+        최고가를 해당 분의 가격으로 DB에 저장한다.
+        getRealTimePrice()에서 MaxPrice['pcode']=tempMaxPrice의 형태로 저장한
+        가격을 DB에 저장
+        main에서 60초에 한번씩 실행되어야 함.
+        """
         currentMin = datetime.datetime.now().strftime('%Y%m%d%H%M')
         try:
             for code in self.realTimeCodeList:
                 # "insert into stock_price values(to_date('20171127141500', 'yyyymmddhh24miss'), 'company', 87000)"
                 sql_insert_tables = "insert into stock_price(st_date, pcode, price) " \
-                                    "values(to_date('"+currentMin+" 'YYYYMMDDHH24MI'), " \
+                                    "values(STR_TO_DATE('"+currentMin+" '$Y%m%d%H%i%s'), " \
                                     "'"+code+"', "+str(self.tempMaxPrice['{}'.format(code)])+")"
                 self.cur.execute(sql_insert_tables)
                 print("st_date : "+currentMin +", pcode ="+ code +
@@ -289,8 +327,7 @@ class Kiwoom(QAxWidget):
         finally:
             self.tempMaxPrice = {}
 
-
-
+    # 키움API에 요청한 Transaction에 대한 반환값을 처리
     def receiveTrData(self, screenNo, requestName, trCode, recordName, inquiry,
                       deprecated1, deprecated2, deprecated3, deprecated4):
         """
@@ -431,6 +468,8 @@ class Kiwoom(QAxWidget):
         except AttributeError:
             pass
 
+    # 키움API에 요청한 RealData를 처리
+    # todo need to check for RealTime System
     def receiveRealData(self, codes, realType, realData):
         """
         실시간 데이터 수신 이벤트
@@ -445,12 +484,12 @@ class Kiwoom(QAxWidget):
             self.realTimeCodeList = codes.split(';')
             for code in self.realTimeCodeList:
                 if code == '09':
-                    return
+                    print("090909090")
                 else:
                     runTimePrice = self.getCommRealData(code, 10)
                     self.nowPrice['{}'.format(code)] = runTimePrice
             print(self.nowPrice)
-            print("-----------------")
+            print("--------실시간데이터---------")
             # if realType not in RealType.REALTYPE:
             #     return
             # if codes != "":
@@ -459,13 +498,12 @@ class Kiwoom(QAxWidget):
             #     codeOrNot = realType
             # for fid in sorted(RealType.REALTYPE[realType].keys()):
             #     value = self.getCommRealData(codeOrNot, fid)
-            # TODO: DB에 저장
-            # self.log.debug(self.testdata)
         except Exception as e:
             self.log.debug("[receiveRealData]")
             self.log.debug("({})".format(realType))
             self.log.error('{}'.format(e))
 
+    # 주문 요청에 따른 반환값 처리
     def receiveChejanData(self, gubun, itemCnt, fidList):
         """
         주문 접수/확인 수신시 이벤트
@@ -484,10 +522,11 @@ class Kiwoom(QAxWidget):
             print(FidList.CHEJAN[int(fid)] if int(fid) in FidList.CHEJAN else fid, ": ", self.getChejanData(int(fid)))
         print("========================================")
 
-    ###############################################################
-    # 메서드 정의: 로그인 관련 메서드                                    #
-    ###############################################################
 
+
+    ''' ------------- 키움API 요청처리 메서드------------- '''
+    ''' -------------최대 요청가능 횟수 1초 5회----------- '''
+    # 키움API에 접속 요청
     def commConnect(self):
         """
         로그인을 시도합니다.
@@ -499,6 +538,7 @@ class Kiwoom(QAxWidget):
         self.loginLoop = QEventLoop()
         self.loginLoop.exec_()
 
+    # 접속상태 요청
     def getConnectState(self):
         """
         현재 접속상태를 반환합니다.
@@ -510,6 +550,7 @@ class Kiwoom(QAxWidget):
         state = self.dynamicCall("GetConnectState()")
         return state
 
+    # 로그인 정보 요청
     def getLoginInfo(self, tag, isConnectState=False):
         """
         사용자의 tag에 해당하는 정보를 반환한다.
@@ -542,6 +583,7 @@ class Kiwoom(QAxWidget):
 
         return info
 
+    # 실서버와 모의서버 구분 요청
     def getServerGubun(self):
         """
         서버구분 정보를 반환한다.
@@ -552,11 +594,7 @@ class Kiwoom(QAxWidget):
         ret = self.dynamicCall("KOA_Functions(QString, QString)", "GetServerGubun", "")
         return ret
 
-    #################################################################
-    # 메서드 정의: 조회 관련 메서드                                        #
-    # 시세조회, 관심종목 조회, 조건검색 등 이들의 합산 조회 횟수가 1초에 5회까지 허용 #
-    #################################################################
-
+    # 요청에 필요한 제반정보 입력
     def setInputValue(self, key, value):
         """
         TR 전송에 필요한 값을 설정한다.
@@ -569,6 +607,7 @@ class Kiwoom(QAxWidget):
 
         self.dynamicCall("SetInputValue(QString, QString)", key, value)
 
+    # 데이터 요청
     def commRqData(self, requestName, trCode, inquiry, screenNo):
         """
         키움서버에 TR 요청을 한다.
@@ -598,6 +637,7 @@ class Kiwoom(QAxWidget):
         self.requestLoop = QEventLoop()
         self.requestLoop.exec_()
 
+    # 요청에 따른 반환값 요청
     def commGetData(self, trCode, realType, requestName, index, key):
         """
         데이터 획득 메서드
@@ -613,6 +653,7 @@ class Kiwoom(QAxWidget):
 
         return self.getCommData(trCode, requestName, index, key)
 
+    # commGetData 메소드를 통한 키움API에 실질적 요청
     def getCommData(self, trCode, requestName, index, key):
         """
         데이터 획득 메서드
@@ -634,6 +675,7 @@ class Kiwoom(QAxWidget):
                                 trCode, requestName, index, key)
         return data.strip()
 
+    # 요청에 따라 반환된 데이터의 수를 요청
     def getRepeatCnt(self, trCode, requestName):
         """
         서버로 부터 전달받은 데이터의 갯수를 리턴합니다.(멀티데이터의 갯수)
@@ -656,6 +698,7 @@ class Kiwoom(QAxWidget):
         count = self.dynamicCall("GetRepeatCnt(QString, QString)", trCode, requestName)
         return count
 
+    # todo 필요성 체크
     def getCommDataEx(self, trCode, multiDataName):
         """
         멀티데이터 획득 메서드
@@ -672,6 +715,7 @@ class Kiwoom(QAxWidget):
         data = self.dynamicCall("GetCommDataEx(QString, QString)", trCode, multiDataName)
         return data
 
+    # todo 필요성 체크
     def commKwRqData(self, codes, inquiry, codeCount, requestName, screenNo, typeFlag=0):
         """
         복수종목조회 메서드(관심종목조회 메서드라고도 함).
@@ -718,10 +762,11 @@ class Kiwoom(QAxWidget):
         self.requestLoop = QEventLoop()
         self.requestLoop.exec_()
 
-    ###############################################################
-    # 메서드 정의: 실시간 데이터 처리 관련 메서드                           #
-    ###############################################################
 
+
+    ''' 실시간 데이터 관련 메서드 '''
+
+    # 화면별 실시간데이터 요청을 제거
     def disconnectRealData(self, screenNo):
         """
         해당 화면번호로 설정한 모든 실시간 데이터 요청을 제거합니다.
@@ -737,6 +782,7 @@ class Kiwoom(QAxWidget):
 
         self.dynamicCall("DisconnectRealData(QString)", screenNo)
 
+    # 요청한 실시간 데이터의 반환값을 호출
     def getCommRealData(self, code, fid):
         """
         실시간 데이터 획득 메서드
@@ -754,6 +800,7 @@ class Kiwoom(QAxWidget):
 
         return value
 
+    # 복수 종목, 정보에 대한 실시간 데이터 요청 등록
     def setRealReg(self, screenNo, codes, fids, realRegType):
         """
         실시간 데이터 요청 메서드
@@ -785,7 +832,7 @@ class Kiwoom(QAxWidget):
         self.realDataLoop = QEventLoop()
         self.realDataLoop.exec_()
 
-
+    # setRealReg에서 등록한 요청 제거
     def setRealRemove(self, screenNo, code):
         """
         실시간 데이터 중지 메서드
@@ -803,10 +850,10 @@ class Kiwoom(QAxWidget):
 
         self.dynamicCall("SetRealRemove(QString, QString)", screenNo, code)
 
-    ###############################################################
-    # 메서드 정의: 조건검색 관련 메서드와 이벤트                            #
-    ###############################################################
 
+
+    ''' 조건검색 관련 메서드 '''
+    # todo 필요성 체크
     def receiveConditionVer(self, receive, msg):
         """
         getConditionLoad() 메서드의 조건식 목록 요청에 대한 응답 이벤트
@@ -830,7 +877,6 @@ class Kiwoom(QAxWidget):
 
         finally:
             self.conditionLoop.exit()
-
     def receiveTrCondition(self, screenNo, codes, conditionName, conditionIndex, inquiry):
         """
         (1회성, 실시간) 종목 조건검색 요청시 발생되는 이벤트
@@ -855,7 +901,6 @@ class Kiwoom(QAxWidget):
 
         finally:
             self.conditionLoop.exit()
-
     def receiveRealCondition(self, code, event, conditionName, conditionIndex):
         """
         실시간 종목 조건검색 요청시 발생되는 이벤트
@@ -869,7 +914,6 @@ class Kiwoom(QAxWidget):
 
         print("종목코드: ", code)
         print("이벤트: ", "종목편입" if event == "I" else "종목이탈")
-
     def getConditionLoad(self):
         """ 조건식 목록 요청 메서드 """
 
@@ -885,7 +929,6 @@ class Kiwoom(QAxWidget):
         # receiveConditionVer() 이벤트 메서드에서 루프 종료
         self.conditionLoop = QEventLoop()
         self.conditionLoop.exec_()
-
     def getConditionNameList(self):
         """
         조건식 획득 메서드
@@ -909,7 +952,6 @@ class Kiwoom(QAxWidget):
             conditionDictionary[int(key)] = value
 
         return conditionDictionary
-
     def sendCondition(self, screenNo, conditionName, conditionIndex, isRealTime):
         """
         종목 조건검색 요청 메서드
@@ -943,7 +985,6 @@ class Kiwoom(QAxWidget):
         # receiveTrCondition() 이벤트 메서드에서 루프 종료
         self.conditionLoop = QEventLoop()
         self.conditionLoop.exec_()
-
     def sendConditionStop(self, screenNo, conditionName, conditionIndex):
         """ 종목 조건검색 중지 메서드 """
 
@@ -957,11 +998,11 @@ class Kiwoom(QAxWidget):
 
         self.dynamicCall("SendConditionStop(QString, QString, int)", screenNo, conditionName, conditionIndex)
 
-    ###############################################################
-    # 메서드 정의: 주문과 잔고처리 관련 메서드                              #
-    # 1초에 5회까지 주문 허용                                          #
-    ###############################################################
 
+
+    ''' 주문 관련 메서드 '''
+
+    # 매매 요청
     def sendOrder(self, requestName, screenNo, accountNo, orderType, code, qty, price, hogaType, originOrderNo):
 
         """
@@ -1007,7 +1048,8 @@ class Kiwoom(QAxWidget):
         self.orderLoop = QEventLoop()
         self.orderLoop.exec_()
 
-
+    # 체결잔고 데이터 호출
+    # todo 확인 필요
     def getChejanData(self, fid):
         """
         주문접수, 주문체결, 잔고정보를 얻어오는 메서드
@@ -1023,10 +1065,11 @@ class Kiwoom(QAxWidget):
         data = self.dynamicCall(cmd)
         return data
 
-    ###############################################################
-    # 기타 메서드 정의                                                #
-    ###############################################################
 
+
+    ''' 기타 메서드 '''
+
+    # 주식시장별 코드리스트 요청
     def getCodeListByMarket(self, market):
         """
         시장 구분에 따른 종목코드의 목록을 List로 반환한다.
@@ -1049,6 +1092,7 @@ class Kiwoom(QAxWidget):
         codeList = self.dynamicCall(cmd)
         return codeList.split(';')
 
+    # 여러시장의 종목코드 요청
     def getCodeList(self, *market):
         """
         여러 시장의 종목코드를 List 형태로 반환하는 헬퍼 메서드.
@@ -1064,6 +1108,7 @@ class Kiwoom(QAxWidget):
 
         return codeList
 
+    # 종목코드에 따른 한글명(회사명) 반환
     def getMasterCodeName(self, code):
         """
         종목코드의 한글명을 반환한다.
@@ -1081,6 +1126,7 @@ class Kiwoom(QAxWidget):
         name = self.dynamicCall(cmd)
         return name
 
+    # 데이터 형태 변환
     def change_format(data):
         strip_data = data.lstrip('-0')
         if strip_data == '' or strip_data == '.00':
@@ -1092,6 +1138,7 @@ class Kiwoom(QAxWidget):
 
         return format_data
 
+    # 데이터 형태 변환
     def changeFormat(self, data, percent=0):
 
         if percent == 0:
@@ -1108,12 +1155,14 @@ class Kiwoom(QAxWidget):
 
         return formatData
 
+    # 잔고 및 보유종목 초기화
     def opwDataReset(self):
         """ 잔고 및 보유종목 데이터 초기화 """
         self.opw00001Data = 0
         self.opw00018Data = {'accountEvaluation': [], 'stocks': []}
 
 
+# 파라미터의 타입 오류
 class ParameterTypeError(Exception):
     """ 파라미터 타입이 일치하지 않을 경우 발생하는 예외 """
 
@@ -1123,7 +1172,7 @@ class ParameterTypeError(Exception):
     def __str__(self):
         return self.msg
 
-
+# 사용불가한 파라미터 입력 오류
 class ParameterValueError(Exception):
     """ 파라미터로 사용할 수 없는 값을 사용할 경우 발생하는 예외 """
 
@@ -1133,7 +1182,7 @@ class ParameterValueError(Exception):
     def __str__(self):
         return self.msg
 
-
+# 키움API에서 처리실패에 따른 예외
 class KiwoomProcessingError(Exception):
     """ 키움에서 처리실패에 관련된 리턴코드를 받았을 경우 발생하는 예외 """
 
@@ -1146,7 +1195,7 @@ class KiwoomProcessingError(Exception):
     def __repr__(self):
         return self.msg
 
-
+# 로그인 예외
 class KiwoomConnectError(Exception):
     """ 키움서버에 로그인 상태가 아닐 경우 발생하는 예외 """
 
@@ -1156,7 +1205,7 @@ class KiwoomConnectError(Exception):
     def __str__(self):
         return self.msg
 
-
+# 키움API의 처리실패 시 반환 코드
 class ReturnCode(object):
     """ 키움 OpenApi+ 함수들이 반환하는 값 """
 
@@ -1223,7 +1272,7 @@ class ReturnCode(object):
         -500: '종목코드없음'
     }
 
-
+# 체결잔고 데이터의 FID 목록
 class FidList(object):
     """ receiveChejanData() 이벤트 메서드로 전달되는 FID 목록 """
 
@@ -1287,7 +1336,7 @@ class FidList(object):
         306: '하한가'
     }
 
-
+# 실시간데이터 타입에 따른 항목
 class RealType(object):
 
     REALTYPE = {
