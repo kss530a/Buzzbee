@@ -14,7 +14,7 @@ def create_company_info_table():
         sql_create_tables = "create table company_info(" \
                             "pcode varchar(8) primary key," \
                             "pname varchar(40) not null, " \
-                            "eval_index DECIMAL(1,3)" \
+                            "eval_index float" \
                             ")"
         cur.execute(sql_create_tables)
         print("company_info 테이블 생성 완료")
@@ -76,9 +76,9 @@ if __name__ == "__main__":
     # app = QApplication(sys.argv)
     # kiwoom = Kiwoom()
     # kiwoom.commConnect()
-    # create_company_info_table()
+    create_company_info_table()
     # insert_company_info_table()
-    # creat_stock_price_table()
+    creat_stock_price_table()
     create_interest_company_table()
     # pcode = "145210"
     # kiwoom.insert_interest_company_table(pcode)

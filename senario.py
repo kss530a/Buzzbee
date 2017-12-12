@@ -30,20 +30,20 @@ from tfData import *
 
 if __name__ == "__main__":
     print("---------Scenario.1 시작---------")
-    # app = QApplication(sys.argv)
-    # kiwoom = Kiwoom()
-    # kiwoom.commConnect()
-    # print("키움API 접속 완료")
+    app = QApplication(sys.argv)
+    kiwoom = Kiwoom()
+    kiwoom.commConnect()
+    print("키움API 접속 완료")
 
     # 기본 테이블 생성
     # create_company_info_table()
     # creat_stock_price_table()
     # create_interest_company_table()
-    # print("기본테이블 생성 완료")
+    print("기본테이블 생성 완료")
 
     # 기본 회사정보 입력
-    # kiwoom.insertCompanyInfoTable()
-    # print("회사정보 호출 및 저장 완료")
+    kiwoom.insertCompanyInfoTable()
+    print("회사정보 호출 및 저장 완료")
 
     # 테스트 할 회사명과 날짜
     # company = "039490"
@@ -53,7 +53,7 @@ if __name__ == "__main__":
     # X_end_date = "20171122000000"
 
     # 주식정보 저장하기
-    code_list =["590010", "035420", "035720", "036570", "039130", "039570", "010950", "009290", "004170", "039490"]
+    # code_list =["590010", "035420", "035720", "036570", "039130", "039570", "010950", "009290", "004170", "039490"]
     # update interest_company set eval_index=0.844 where pcode='590010';
     # update interest_company set eval_index=0.123 where pcode='035420';
     # update interest_company set eval_index=0.177 where pcode='035720';
@@ -65,10 +65,10 @@ if __name__ == "__main__":
     # update interest_company set eval_index=0.208 where pcode='004170';
     # update interest_company set eval_index=0.159 where pcode='039490';
 
-    for code in code_list:
-        makeY(code)
-        print(code+"의 Y값 구하기 완료 ")
-        print("------------------------")
+    # for code in code_list:
+    #     makeY(code)
+    #     print(code+"의 Y값 구하기 완료 ")
+    #     print("------------------------")
 
 
 

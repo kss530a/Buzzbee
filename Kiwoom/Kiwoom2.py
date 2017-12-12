@@ -5,7 +5,7 @@ import pymysql as mysql
 import datetime
 import time
 from PyQt5.QAxContainer import QAxWidget
-from PyQt5.QtCore import QEventLoop
+from PyQt5.QtCore import QEventLoop, QTimer
 from PyQt5.QtWidgets import QApplication
 from pandas import DataFrame
 
@@ -58,9 +58,10 @@ class Kiwoom(QAxWidget):
         self.high250 = 0
         self.low250 = 0
         self.testdata = []
-        self.tempMaxPrice = {}
         self.nowPrice={}
         self.interestCompanyCode= []
+        self.tempMinPrice = {}
+        self.realTimeCodeList = []
 
         # 키움API는 1초당 최대 5회의 TR만 허용
         self.TR_REQ_TIME_INTERVAL=0.2
@@ -82,7 +83,6 @@ class Kiwoom(QAxWidget):
         # 로깅용 설정파일
         logging.config.fileConfig('logging.conf')
         self.log = logging.getLogger('Kiwoom')
-
 
 
     ''' -------------로깅용 메서드 정의------------- '''
@@ -127,7 +127,7 @@ class Kiwoom(QAxWidget):
             # 로그인 후, 통신이 끊길 경우를 대비해서 예외처리함.
             try:
                 self.loginLoop.exit()
-                self.realDataLoop.exit()
+                # self.realDataLoop.exit()
             except AttributeError:
                 pass
 
@@ -158,9 +158,8 @@ class Kiwoom(QAxWidget):
                                 "set high250="+str(high250)+", " \
                                 "low250="+str(low250)+" " \
                                 "where pcode='"+company+"'"
-            print(sql_update_tables)
             self.cur.execute(sql_update_tables)
-            print("update_interest_company Complete")
+            print("관심종목 업데이트 완료")
             self.conn.commit()
         except mysql.DatabaseError as e:
             print('update_interest_company Error : ', e)
@@ -214,21 +213,20 @@ class Kiwoom(QAxWidget):
         try:
             # DB에 저장,  형태:20171127141500,-87000
             # str_to_date('20171127141500', '$Y%m%d%H%i%s')
+            print(company + " 사의 주식정보 저장 시작")
             for i in range(len(self.data['date'])):
                 date = str(self.data['date'][i])
                 date = date[:-10]+"-"+date[-10:-8]+"-"+date[-8:-6]+" "+date[-6:-4]+":"+date[-4:-2]+":"+date[-2:]
-                print(date)
                 # "insert into stock_price values(str_to_date('2017-11-27 14:15:00', '%Y-%m-%d %H:%i:%s'), 'company', 87000)"
                 sql_insert_tables = "insert into stock_price(st_date, pcode, price) " \
                                     "values(str_to_date('"+date+"', '%Y-%m-%d %H:%i:%s'), " \
                                     "'"+ company + "', " + self.data['high'][i] + ")"
-                print(sql_insert_tables)
                 self.cur.execute(sql_insert_tables)
             self.conn.commit()
         except mysql.DatabaseError as e:
             print('savePrice Error : ', e)
 
-        print("savePrice Complete")
+        print(company + " 사의 주식정보 저장 완료")
 
     # UI에서 입력받은 관심종목을 DB에 저장
     def insertInterestCompanyTable(self, pcode):
@@ -243,17 +241,18 @@ class Kiwoom(QAxWidget):
                                 "values('"+pcode+"', '"+pname+"')"
 
             self.cur.execute(sql_update_tables)
-            self.msg = "관심종목에 [종목코드 "+str(pcode)+"] 추가 완료되었습니다" + "\r\n"
-            print("insertInterestCompanyTable Complete")
+            self.msg = "관심종목에 ["+str(pname)+"] 추가 완료되었습니다" + "\r\n"
+            print("관심종목에 ["+str(pname)+"] 추가 완료되었습니다" )
             self.conn.commit()
         except mysql.DatabaseError as e:
             print('insertInterestCompanyTable Error : ', e)
+
 
     # UI에서 입력받은 관심종목을 DB에서 제거
     def deleteInterestCompany(self, pcode):
         try:
             # todo 리스트 리무브 동작 체크
-            # self.interestCompanyCode.remove(pcode)
+            self.interestCompanyCode.remove(pcode)
             sql_update_tables = "delete from interest_company " \
                                 "where pcode='" + pcode + "'"
 
@@ -274,7 +273,7 @@ class Kiwoom(QAxWidget):
             self.interestCompany=[]
             for company in self.cur.fetchall():
                 company = list(company)
-                self.interestCompanyCode.append(company[0])
+                self.interestCompanyCode.append(company[1])
                 self.interestCompany.append(company)
         except mysql.DatabaseError as e:
             e.msg = "getInterestCompany() 에러"
@@ -304,28 +303,30 @@ class Kiwoom(QAxWidget):
 
     # 실시간 체크된 주가정보를 분단위로 DB에 저장
     # todo need to check for RealTime System
-    def saveRealTimePrice(self, pcodes):
+    def saveRealTimePrice(self):
         """
         최고가를 해당 분의 가격으로 DB에 저장한다.
         getRealTimePrice()에서 MaxPrice['pcode']=tempMaxPrice의 형태로 저장한
         가격을 DB에 저장
         main에서 60초에 한번씩 실행되어야 함.
         """
-        currentMin = datetime.datetime.now().strftime('%Y%m%d%H%M')
+        currentMin = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         try:
-            for code in self.realTimeCodeList:
-                # "insert into stock_price values(to_date('20171127141500', 'yyyymmddhh24miss'), 'company', 87000)"
-                sql_insert_tables = "insert into stock_price(st_date, pcode, price) " \
-                                    "values(STR_TO_DATE('"+currentMin+" '$Y%m%d%H%i%s'), " \
-                                    "'"+code+"', "+str(self.tempMaxPrice['{}'.format(code)])+")"
-                self.cur.execute(sql_insert_tables)
-                print("st_date : "+currentMin +", pcode ="+ code +
-                      ", price : "+ str(self.tempMaxPrice['{}'.format(code)]) + " 저장되었습니다.")
-            self.conn.commit()
+            if not self.realTimeCodeList:
+                print("현시각:"+currentMin+", 실시간데이터가 수신되지 않고 있습니다.(사유: 장외시간 등)")
+            for code in self.interestCompanyCode:
+                if not self.realTimeCodeList :
+                    pass
+                else:
+                    sql_insert_tables = "insert into stock_price(st_date, pcode, price) " \
+                                        "values(STR_TO_DATE('"+currentMin+"','%Y-%m-%d %H:%i:%s'), " \
+                                        "'"+code+"', "+str(self.kiwoom.tempMinPrice['{}'.format(code)])+")"
+                    self.cur.execute(sql_insert_tables)
+                    print("현시각:" + currentMin + ", 실시간주가 저장 완료")
+                    self.conn.commit()
         except mysql.DatabaseError as e:
             print('Error : ', e)
-        finally:
-            self.tempMaxPrice = {}
+
 
     # 키움API에 요청한 Transaction에 대한 반환값을 처리
     def receiveTrData(self, screenNo, requestName, trCode, recordName, inquiry,
@@ -480,16 +481,31 @@ class Kiwoom(QAxWidget):
         :param realType: string - 실시간 타입(KOA의 실시간 목록 참조)
         :param realData: string - 실시간 데이터 전문
         """
+
         try:
-            self.realTimeCodeList = codes.split(';')
-            for code in self.realTimeCodeList:
-                if code == '09':
-                    print("090909090")
-                else:
+            if len(codes)>7:
+                self.realTimeCodeList = codes.split(';')
+                for code in self.realTimeCodeList:
+                    if code == "09":
+                        continue
                     runTimePrice = self.getCommRealData(code, 10)
+                    print(runTimePrice)
+                    if (runTimePrice > self.tempMinPrice['{}'.format(code)]):
+                        self.tempMinPrice['{}'.format(code)] = runTimePrice
                     self.nowPrice['{}'.format(code)] = runTimePrice
-            print(self.nowPrice)
-            print("--------실시간데이터---------")
+                print("--------실시간데이터---------")
+                print(realData)
+                print(self.nowPrice)
+                print("----------------------------")
+            else:
+                runTimePrice = self.getCommRealData(codes, 10)
+                self.tempMinPrice['{}'.format(codes)] = runTimePrice
+                self.nowPrice['{}'.format(codes)] = runTimePrice
+                print("--------실시간데이터---------")
+                print(realData)
+                print(self.nowPrice)
+                print("----------------------------")
+
             # if realType not in RealType.REALTYPE:
             #     return
             # if codes != "":
@@ -824,13 +840,13 @@ class Kiwoom(QAxWidget):
                 and isinstance(fids, str)
                 and isinstance(realRegType, str)):
             raise ParameterTypeError()
-
+        print(codes + " 회사들의 실시간데이터를 요청합니다.")
         self.dynamicCall("SetRealReg(QString, QString, QString, QString)",
                          screenNo, codes, fids, realRegType)
 
         # logout시 종료
-        self.realDataLoop = QEventLoop()
-        self.realDataLoop.exec_()
+        # self.realDataLoop = QEventLoop()
+        # self.realDataLoop.exec_()
 
     # setRealReg에서 등록한 요청 제거
     def setRealRemove(self, screenNo, code):

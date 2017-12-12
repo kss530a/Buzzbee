@@ -12,14 +12,13 @@ hyper-parameter = limitTimePoint(0~100%), decideY(0.0~1.0)
 '''
 
 import numpy as np
-import hyperParameters as hp
 import pymysql as mysql
 
 #hyper-parameters
-limitTimePoint=float(hp.getHyparam("limitTimePoint")) #상승시점 분포 기준
-decideY=float(hp.getHyparam("decideY")) #기사 발행시점 이후 limitTime 이내 판매가 이상 유지시간
-data_dim = hp.getHyparam("data_dim") #단어 수
-non_word_num = hp.getHyparam("non_word_num")
+# limitTimePoint=float(hp.getHyparam("limitTimePoint")) #상승시점 분포 기준
+decideY=0.2 #기사 발행시점 이후 limitTime 이내 판매가 이상 유지시간
+# data_dim = hp.getHyparam("data_dim") #단어 수
+# non_word_num = hp.getHyparam("non_word_num")
 
 # savePrice()에 의해 DB에 저장된 [date, price]정보를 가져와 반환
 # ex. price= getPrice("039490", "20171025125500", "20171025133600")
@@ -164,10 +163,16 @@ def makeY(company):
                 y_hat = 0
             y_list.append(y_hat)
         y_list=np.array(y_list)
-        print(company +"사 "+str(len(y_list))+"개 Y데이터 분석")
-        print(np.mean(y_list))
-        #날짜에 맞는 y_hat 값 넣기
+        print("makeY : "+company +"사 "+str(len(y_list))+"개 주식데이터 분석")
+        print("makeY : "+company +"사의 자체평가 인덱스 : " + str(np.mean(y_list)))
 
+        # 자체평가 index 저장
+        sql_update_table = "update interest_company " \
+                           "set eval_index=" + str(np.mean(y_list)) + " " \
+                                                                      "where pcode='" + company + "'"
+        cur.execute(sql_update_table)
+
+        #날짜에 맞는 y_hat 값 넣기
         #todo 최근 y_hat 저장날자 구하여 해당날짜 까지만 수행
         for i in range(0, len(date_list)-60):
             _date = str(date_list[i])
@@ -177,6 +182,7 @@ def makeY(company):
                                 "where st_date=STR_TO_DATE('"+_date+"','%Y-%m-%d %H:%i:%s')"
             cur.execute(sql_update_tables)
         conn.commit()
+
 
         # temp = []
         # for i in range(0, len(date_list)-60):

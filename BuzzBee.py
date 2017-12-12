@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QTableWidget
 from PyQt5.QtCore import Qt, QTimer, QTime
 from PyQt5 import uic
 from Kiwoom.Kiwoom2 import Kiwoom, ParameterTypeError, ParameterValueError, KiwoomProcessingError, KiwoomConnectError
+from tfData import *
 
 ui = uic.loadUiType("BuzzBee.ui")[0]
 
@@ -44,27 +45,24 @@ class MyWindow(QMainWindow, ui):
 
         # 잔고 및 보유종목 조회 타이머
         self.inquiryTimer = QTimer(self)
-        self.inquiryTimer.start(1000*10)
+        self.inquiryTimer.start(1000 * 10)
         self.inquiryTimer.timeout.connect(self.timeout)
+
+        # self.savaRealTimer = QTimer(self)
+        # self.savaRealTimer.start(1000 * 60)
+        # self.savaRealTimer.timeout.connect(self.timeout)
 
         # 자동 주문
         # 자동 주문을 활성화 하려면 True로 설정
         self.isAutomaticOrder = False
 
         # 자동 선정 종목 리스트 테이블 설정
+        self.kiwoom.setRealRemove("0101", "ALL")
         self.putInterestCompany()
         time.sleep(self.kiwoom.TR_REQ_TIME_INTERVAL)
         self.inquiryBalance()
         time.sleep(self.kiwoom.TR_REQ_TIME_INTERVAL)
-        self.kiwoom.setRealRemove("0101", "ALL")
 
-
-        # self.currentHour=0
-        # # 실시간데이터 조회 등록
-        # if self.currentHour >= 8 and self.currentHour <= 16:
-        #     self.setRealTime()
-        # else:
-        #     self.removeRealTime()
 
 
     def timeout(self):
@@ -76,18 +74,13 @@ class MyWindow(QMainWindow, ui):
         # 메인 타이머
         if id(sender) == id(self.timer):
             currentTime = QTime.currentTime().toString("hh:mm:ss")
-            # self.currentHour = int(currentTime[:2])
-            # self.currentMin = int(currentTime[4:6])
-            # self.currentSec = currentTime[-2:]
             automaticOrderTime = QTime.currentTime().toString("hhmm")
 
             # 상태바 설정
             state = ""
 
-            # if self.currentSec%60 == 0 :
-            #     self.kiwoom.saveRealTimePrice(self.kiwoom.interestCompanyCode)
-            # elif self.currentSec%10 == 8 :
-            #     self.kiwoom.checkRealTimePrice()
+            if currentTime[-2:]=="00" :
+                self.kiwoom.saveRealTimePrice()
 
             if self.kiwoom.getConnectState() == 1:
 
@@ -110,19 +103,27 @@ class MyWindow(QMainWindow, ui):
             #todo 크롤러 기사뽑아오는 것 송출 추가
 
         # 실시간 조회 타이머
-        else:
+        elif id(sender) == id(self.inquiryTimer):
             if self.realtimeCheckBox.isChecked():
                 self.inquiryBalance()
+
+        # 실시간 가격정보를 1분단위로 저장
+        # elif id(sender) == id(self.savaRealTimer):
+            #todo class.Buzzbee에 만들기
+            # self.kiwoom.saveRealTimePrice()
 
     # addCodeButton 버튼이 클릭되면 addCodeLineEdit에 입력된 pcode를 받아와
     # DB interest_company에 삽입하고 kiwoom을 통해 정보를 업데이트 하고
     # putInterestCompany를 통해 테이블에 노출시킨다
     def addInterestCompany(self):
         pcode1 = str(self.addCodeLineEdit.text())
+        print("관심종목(" + pcode1 + ")에 대한 주가정보 저장 및 분석 시작합니다.")
         self.kiwoom.insertInterestCompanyTable(pcode1)
+        self.kiwoom.savePrice(pcode1)
+        makeY(pcode1)
         self.kiwoom.updateInterestCompany(pcode1)
         self.putInterestCompany()
-        # self.setRealTime()
+        print("관심종목("+pcode1+") 추가 완료")
 
     # 관심종목 제거
     def delInterestCompany(self):
@@ -130,7 +131,7 @@ class MyWindow(QMainWindow, ui):
         print(pcode1)
         self.kiwoom.deleteInterestCompany(pcode1)
         self.putInterestCompany()
-        # self.setRealTime()
+        self.setRealTime()
 
     def setRealTime(self):
         #setRealReg에 맞는 code 입력형식으로 변환
@@ -156,7 +157,6 @@ class MyWindow(QMainWindow, ui):
     def putInterestCompany(self):
         self.kiwoom.getInterestCompany()
         cnt = len(self.kiwoom.interestCompany)
-        self.interestCompany = self.kiwoom.interestCompany
         self.automatedStocksTable.setRowCount(cnt)
         # print(self.interestCompany)
         # 테이블에 출력
@@ -168,8 +168,8 @@ class MyWindow(QMainWindow, ui):
                     item = QTableWidgetItem(str(self.kiwoom.interestCompany[i][j]))
                 item.setTextAlignment(Qt.AlignVCenter | Qt.AlignCenter)
                 self.automatedStocksTable.setItem(i, j, item)
-
         self.automatedStocksTable.resizeRowsToContents()
+        self.setRealTime()
 
 
     def setCodeName(self):
